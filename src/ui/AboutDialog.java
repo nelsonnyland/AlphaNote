@@ -13,12 +13,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 import model.Team;
+import model.Constants;
 
 public class AboutDialog extends JDialog{
 	
 	
     private JLabel myRegisteredToLabel;    
     private JLabel myProvidedByLabel;
+    private JLabel myVersionLabel;
     
     private Map<TextAttribute, Object> p_style;
     private Team team;
@@ -38,7 +40,8 @@ public class AboutDialog extends JDialog{
 		p_style.put(TextAttribute.SIZE, 12);
 		
 		myRegisteredToLabel = new JLabel("This app is registered to: Jeffrey Weiss");
-		myProvidedByLabel = new JLabel("This app provided by Team Alpha:");	
+		myProvidedByLabel = new JLabel("This app provided by Team Alpha:");
+		myVersionLabel = new JLabel("AlphaNote " + Constants.VERSION_NUMBER);
 	}
 
 	private void layoutComponents(Frame owner) {
@@ -47,7 +50,8 @@ public class AboutDialog extends JDialog{
     	contentPane.setLayout(layout);
     	
     	contentPane.add(myRegisteredToLabel);
-    	contentPane.add(myProvidedByLabel);    	
+    	contentPane.add(myProvidedByLabel);
+    	contentPane.add(myVersionLabel);
     	
     	layout.putConstraint(SpringLayout.WEST, myRegisteredToLabel, 5, SpringLayout.WEST, contentPane);    	
     	layout.putConstraint(SpringLayout.NORTH, myRegisteredToLabel, 5, SpringLayout.NORTH, contentPane);
@@ -66,8 +70,15 @@ public class AboutDialog extends JDialog{
 			x+=20;
 		}
 		
+		x+=40;
+		
+		layout.putConstraint(SpringLayout.EAST, myVersionLabel, -5, SpringLayout.EAST, contentPane);    	
+		layout.putConstraint(SpringLayout.NORTH, myVersionLabel, x, SpringLayout.NORTH, contentPane);
+		
 		layout.putConstraint(SpringLayout.EAST, contentPane, 5, SpringLayout.EAST, myRegisteredToLabel);
-		layout.putConstraint(SpringLayout.SOUTH, contentPane, 140, SpringLayout.NORTH, contentPane);    	
+		layout.putConstraint(SpringLayout.SOUTH, contentPane, 200, SpringLayout.NORTH, contentPane);
+		
+		
     
     	this.setModal(true);
     	this.setResizable(false);
