@@ -2,3 +2,4 @@
 ## authors
 Nelson Nyland
 Khoi Nguyen
+Mario Vidal

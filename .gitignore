@@ -1,0 +1,6 @@
+# Ignored folders
+/.idea/
+/out/
+# Ignored files
+/workspace.xml
+*.iml
