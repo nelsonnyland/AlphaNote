@@ -11,7 +11,7 @@ import javax.swing.*;
 import model.Team;
 import ui.AboutDialog;
 
-public class AppMain extends JFrame{
+public class AppMain extends JFrame {
 	
     /** A button to display about info. */
     private JButton myAboutButton;
@@ -23,8 +23,7 @@ public class AppMain extends JFrame{
         layoutComponents();
         addListeners();
     }
-    
-    
+
 	public static void main(String[] args)
 	{
 		EventQueue.invokeLater(AppMain::createAndShowGui);
@@ -71,7 +70,7 @@ public class AppMain extends JFrame{
     	Team team = new Team();
     	
 		team.addMember("Mario Vidal, nickname: McMarioMan");
-		team.addMember("Nelson Nyland");
+		team.addMember("Nelson Nyland, nickname: Nelly");
 		team.addMember("Danait Asefa");
 		team.addMember("Khoi Nguyen");
     	
