@@ -5,7 +5,6 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-    public static MainFrame mainFrame;
     private JPanel toolPanel;
 
     // starts the application
@@ -16,7 +15,6 @@ public class MainFrame extends JFrame {
 
     public MainFrame(String title) {
     	super(title);
-        mainFrame = this;
         setLayout(new BorderLayout());
         buildComponents();
         layoutComponents();
@@ -24,7 +22,7 @@ public class MainFrame extends JFrame {
     }
 
 	private void buildComponents() {
-        toolPanel = new ToolPanel();
+        toolPanel = new ToolPanel(this);
 	}
 	
     /**

@@ -11,9 +11,11 @@ import java.awt.event.ActionListener;
 public class ToolPanel extends JPanel implements ActionListener {
 
     /** A button to display about info. */
+    private MainFrame mainFrame;
     private JButton aboutButton;
 
-    public ToolPanel() {
+    public ToolPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         setBorder(BorderFactory.createEtchedBorder());
         buildComponents();
@@ -44,7 +46,7 @@ public class ToolPanel extends JPanel implements ActionListener {
             team.addMember("Danait Asefa");
             team.addMember("Khoi Nguyen");
             //TODO: Redo the plumbing for AboutDialog
-            new AboutDialog(MainFrame.mainFrame, team);
+            new AboutDialog(mainFrame, team);
         }
     }
 }
