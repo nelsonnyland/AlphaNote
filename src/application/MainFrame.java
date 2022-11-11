@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
 	
     public static void createAndShowGui() {
     	final MainFrame window = new MainFrame("AlphaNote");
-        final Dimension frameSize = new Dimension(800, 480);        
+        final Dimension frameSize = new Dimension(1000, 700);
         // configure frame
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
