@@ -4,7 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-	
+
+    public static MainFrame mainFrame;
     private JPanel toolPanel;
 
     // starts the application
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame(String title) {
     	super(title);
+        mainFrame = this;
         setLayout(new BorderLayout());
         buildComponents();
         layoutComponents();
@@ -26,18 +28,14 @@ public class MainFrame extends JFrame {
 	}
 	
     /**
-     * Lay out the components and makes this frame visible.
+     * Add JPanels to JFrame
      */
     private void layoutComponents() {
     	add(toolPanel, BorderLayout.NORTH);
-//    	final JPanel buttonPanel = new JPanel();
-//    	buttonPanel.add(myAboutButton);
-//    	mainPanel.add(buttonPanel, BorderLayout.NORTH);
-//    	setContentPane(mainPanel);
     }
     
     /**
-     * Add actionListeners to the buttons. 
+     * Add actionListeners.
      */
     private void addListeners() {
         //
