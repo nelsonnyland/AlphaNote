@@ -39,13 +39,11 @@ public class ToolPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton clicked = (JButton) e.getSource();
         if (clicked == aboutButton) {
-            // set about dialog to visible
             Team team = new Team();
             team.addMember("Mario Vidal, nickname: McMarioMan");
             team.addMember("Nelson Nyland, nickname: Nelly");
             team.addMember("Danait Asefa");
             team.addMember("Khoi Nguyen");
-            //TODO: Redo the plumbing for AboutDialog
             new AboutDialog(mainFrame, team);
         }
     }
