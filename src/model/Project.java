@@ -32,4 +32,9 @@ public class Project {
         this.tags = tags;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

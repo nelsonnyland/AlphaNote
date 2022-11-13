@@ -1,6 +1,6 @@
 package application;
 
-import model.Note;
+import model.Project;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,7 +11,8 @@ public class MainFrame extends JFrame {
 
     private JPanel toolPanel;
     private JPanel sidePanel;
-    private Note[] notes;
+    private JPanel viewPanel;
+    private Project[] projects;
 
     // starts the application
     public static void main(String[] args)
@@ -22,44 +23,38 @@ public class MainFrame extends JFrame {
     public MainFrame(String title) {
     	super(title);
         setLayout(new BorderLayout());
-        getNotes();
+        getProjects();
         buildComponents();
-        layoutComponents();
-        addListeners();
+        addComponents();
     }
 
-    private void getNotes() {
-        //TODO: implement getting notes from database
+    private void getProjects() {
+        //TODO: implement getting projects from database
         List<String> tags = new ArrayList<>();
-        tags.add("Test notes");
-        notes = new Note[10];
+        tags.add("Project");
+        projects = new Project[10];
         for (int i = 0; i < 10; i++) {
-            Note note = new Note();
-            note.setId((int)(Math.random() * 99999));
-            note.setName("Test Name " + i);
-            note.setTags(tags);
-            notes[i] = note;
+            Project project = new Project();
+            project.setId((int)(Math.random() * 99999));
+            project.setName("Project " + i);
+            project.setTags(tags);
+            projects[i] = project;
         }
     }
 
     private void buildComponents() {
         toolPanel = new ToolPanel(this);
-        sidePanel = new SidePanel(notes);
+        sidePanel = new SidePanel(projects);
+        viewPanel = new ViewPanel();
 	}
 	
     /**
      * Add JPanels to JFrame
      */
-    private void layoutComponents() {
+    private void addComponents() {
     	add(toolPanel, BorderLayout.NORTH);
         add(sidePanel, BorderLayout.WEST);
-    }
-    
-    /**
-     * Add actionListeners.
-     */
-    private void addListeners() {
-        //
+        add(viewPanel, BorderLayout.EAST);
     }
 	
     public static void createAndShowGui() {

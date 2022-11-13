@@ -1,23 +1,22 @@
 package application;
 
-import model.Note;
+import model.Project;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.util.List;
 
 public class SidePanel extends JPanel implements ListSelectionListener {
 
-    JScrollPane pane;
-    JList<Note> notes;
+    JScrollPane scrollPane;
+    JList<Project> projects;
 
-    public SidePanel(Note[] notes) {
-        this.notes = new JList<Note>(notes);
+    public SidePanel(Project[] projects) {
+        this.projects = new JList<>(projects);
         buildLayout();
         buildComponents();
-        layoutComponents();
+        addComponents();
         addListeners();
     }
 
@@ -28,24 +27,24 @@ public class SidePanel extends JPanel implements ListSelectionListener {
     }
 
     private void buildComponents() {
-        pane = new JScrollPane(notes);
+        scrollPane = new JScrollPane(projects);
     }
 
-    private void layoutComponents() {
-        add(pane);
+    private void addComponents() {
+        add(scrollPane);
     }
 
     private void addListeners() {
-        notes.addListSelectionListener(this);
+        projects.addListSelectionListener(this);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            notes = (JList<Note>) e.getSource();
-            Note selectedNote = notes.getSelectedValue();
+            projects = (JList<Project>) e.getSource();
+            Project selectedProject = projects.getSelectedValue();
             //TODO: send content to view pane...
-            System.out.println("You selected: " + selectedNote.getName());
+            System.out.println("You selected: " + selectedProject.getName());
         }
     }
 }

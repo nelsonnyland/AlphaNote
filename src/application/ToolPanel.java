@@ -19,7 +19,7 @@ public class ToolPanel extends JPanel implements ActionListener {
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         setBorder(BorderFactory.createEtchedBorder());
         buildComponents();
-        layoutComponents();
+        addComponents();
         addListeners();
     }
 
@@ -27,7 +27,7 @@ public class ToolPanel extends JPanel implements ActionListener {
         aboutButton = new JButton("About");
     }
 
-    private void layoutComponents() {
+    private void addComponents() {
         add(aboutButton);
     }
 
