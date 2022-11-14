@@ -1,5 +1,6 @@
 package application;
 
+import model.AlphaNote;
 import model.Project;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ public class MainFrame extends JFrame {
     private JPanel toolPanel;
     private JPanel sidePanel;
     private JPanel viewPanel;
-    private Project[] projects;
+    private AlphaNote[] projects;
 
     // starts the application
     public static void main(String[] args)
@@ -32,7 +33,7 @@ public class MainFrame extends JFrame {
         //TODO: implement getting projects from database
         List<String> tags = new ArrayList<>();
         tags.add("Project");
-        projects = new Project[10];
+        projects = new AlphaNote[10];
         for (int i = 0; i < 10; i++) {
             Project project = new Project();
             project.setId((int)(Math.random() * 99999));

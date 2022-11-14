@@ -1,18 +1,20 @@
 package application;
 
+import model.AlphaNote;
 import model.Project;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.Collection;
 
 public class SidePanel extends JPanel implements ListSelectionListener {
 
     JScrollPane scrollPane;
-    JList<Project> projects;
+    JList<AlphaNote> projects;
 
-    public SidePanel(Project[] projects) {
+    public SidePanel(AlphaNote[] projects) {
         this.projects = new JList<>(projects);
         buildLayout();
         buildComponents();
@@ -41,10 +43,10 @@ public class SidePanel extends JPanel implements ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            projects = (JList<Project>) e.getSource();
-            Project selectedProject = projects.getSelectedValue();
+            projects = (JList<AlphaNote>) e.getSource();
+            AlphaNote selected = projects.getSelectedValue();
             //TODO: send content to view pane...
-            System.out.println("You selected: " + selectedProject.getName());
+            System.out.println("You selected: " + selected.getName());
         }
     }
 }

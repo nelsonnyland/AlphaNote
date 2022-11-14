@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-public class Note {
+public class Note implements AlphaNote {
 
     private int id;
     private String name;
