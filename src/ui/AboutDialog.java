@@ -15,9 +15,8 @@ import javax.swing.SpringLayout;
 import model.Team;
 import model.Constants;
 
-public class AboutDialog extends JDialog{
-	
-	
+public class AboutDialog extends JDialog {
+
     private JLabel myRegisteredToLabel;    
     private JLabel myProvidedByLabel;
     private JLabel myVersionLabel;
