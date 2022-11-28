@@ -1,11 +1,12 @@
 package application;
 
-import model.AlphaNote;
-import model.Project;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import application.model.AlphaNote;
+import application.model.Project;
+
 import java.awt.*;
 import java.util.Collection;
 
