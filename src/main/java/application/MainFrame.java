@@ -12,6 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
+/**
+ * MainFrame is the entry point of the application.
+ *
+ * @author Mario Vidal
+ * @author Nelson Nyland
+ * @version 0.1
+ */
 @SpringBootApplication
 public class MainFrame extends JFrame {
 

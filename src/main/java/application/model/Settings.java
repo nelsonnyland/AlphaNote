@@ -12,7 +12,11 @@ import jakarta.persistence.Id;
 
 import java.io.*;
 
-
+/**
+ * Settings persists user settings for the application.
+ *
+ * @author Mario Vidal
+ */
 @Entity
 public class Settings implements Serializable{
 	

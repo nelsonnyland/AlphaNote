@@ -1,5 +1,6 @@
-# tcss360alpha
-## authors
-Nelson Nyland
-Khoi Nguyen
-Mario Vidal
+# AlphaNote
+
+## Team Alpha
+* Nelson Nyland
+* Mario Vidal
+* Khoi Nguyen

@@ -14,6 +14,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * ToolPanel houses buttons that control the application.
+ *
+ * @author Nelson Nyland
+ * @author Mario Vidal
+ */
 public class ToolPanel extends JPanel implements ActionListener {
 
     /** A button to display about info. */

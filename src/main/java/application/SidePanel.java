@@ -10,6 +10,11 @@ import application.model.Project;
 import java.awt.*;
 import java.util.Collection;
 
+/**
+ * SidePanel is the selection pane for projects and notes.
+ *
+ * @author Nelson Nyland
+ */
 public class SidePanel extends JPanel implements ListSelectionListener {
 
     JScrollPane scrollPane;

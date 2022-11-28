@@ -4,6 +4,11 @@ import javax.swing.*;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 
+/**
+ * ViewPanel is the main view pane of for the application.
+ *
+ * @author Nelson Nyland
+ */
 public class ViewPanel extends JPanel {
 
     JTextPane textPane;

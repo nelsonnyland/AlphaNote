@@ -1,6 +1,8 @@
 # Ignored folders
 /.idea/
 /out/
+/target/
 # Ignored files
 /workspace.xml
 *.iml
+*.db
