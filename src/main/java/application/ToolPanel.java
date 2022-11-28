@@ -1,13 +1,10 @@
 package application;
 
 import javax.swing.*;
-import java.util.List;
 import java.util.Scanner;
 
 import application.model.Settings;
-import application.model.SpringContext;
 import application.model.Team;
-import application.repository.SettingsDAO;
 import application.ui.AboutDialog;
 
 import java.awt.*;
@@ -24,10 +21,16 @@ public class ToolPanel extends JPanel implements ActionListener {
 
     /** A button to display about info. */
     private MainFrame mainFrame;
-    private JButton aboutButton;
-    private JButton settingsButton;
-    private JButton exportSettingsButton;
-    private JButton importSettingsButton;
+    private JMenuBar menuBar;
+    //private JMenu optionsMenu;
+    private JMenuItem aboutMenuItem;
+    private JMenuItem settingsMenuItem;
+    private JMenuItem exportSettingsMenuItem;
+    private JMenuItem importSettingsMenuItem;
+    //private JButton aboutButton;
+    //private JButton settingsButton;
+    //private JButton exportSettingsButton;
+    //private JButton importSettingsButton;
     
     
     public ToolPanel(MainFrame mainFrame) {
@@ -41,30 +44,47 @@ public class ToolPanel extends JPanel implements ActionListener {
     
 
     private void buildComponents() {
-        aboutButton = new JButton("About");
-        settingsButton = new JButton("Settings");
-        exportSettingsButton = new JButton("Export settings");
-        importSettingsButton = new JButton("Import settings");
+        //aboutButton = new JButton("About");
+        //settingsButton = new JButton("Settings");
+        //exportSettingsButton = new JButton("Export settings");
+        //importSettingsButton = new JButton("Import settings");
+        menuBar = new JMenuBar();
+        var optionsMenu = new JMenu("...");
+        menuBar.add(optionsMenu);
+        aboutMenuItem = new JMenuItem("About");
+        settingsMenuItem = new JMenuItem("Settings");
+        exportSettingsMenuItem = new JMenuItem("Export Settings");
+        importSettingsMenuItem = new JMenuItem("Import Settings");
+        optionsMenu.add(aboutMenuItem);
+        optionsMenu.add(settingsMenuItem);
+        optionsMenu.add(exportSettingsMenuItem);
+        optionsMenu.add(importSettingsMenuItem);
     }
 
     private void addComponents() {
-        add(aboutButton);
-        add(settingsButton);
-        add(exportSettingsButton);
-        add(importSettingsButton);
+        //add(aboutButton);
+        //add(settingsButton);
+        //add(exportSettingsButton);
+        //add(importSettingsButton);
+        add(menuBar);
+        //mainFrame.setJMenuBar(menuBar);
     }
 
     private void addListeners() {
-        aboutButton.addActionListener(this);
-        settingsButton.addActionListener(this::saveSettings);
-        exportSettingsButton.addActionListener(this::exportSettings);
-        importSettingsButton.addActionListener(this::importSettings);
+        //aboutButton.addActionListener(this);
+        //settingsButton.addActionListener(this::saveSettings);
+        //exportSettingsButton.addActionListener(this::exportSettings);
+        //importSettingsButton.addActionListener(this::importSettings);
+        aboutMenuItem.addActionListener(this);
+        settingsMenuItem.addActionListener(this::saveSettings);
+        exportSettingsMenuItem.addActionListener(this::exportSettings);
+        importSettingsMenuItem.addActionListener(this::importSettings);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JButton clicked = (JButton) e.getSource();
-        if (clicked == aboutButton) {
+        JMenuItem selectedItem = (JMenuItem) e.getSource();
+        if (selectedItem == aboutMenuItem) {
             Team team = new Team();
             team.addMember("Mario Vidal, nickname: McMarioMan");
             team.addMember("Nelson Nyland, nickname: Nelly");            
