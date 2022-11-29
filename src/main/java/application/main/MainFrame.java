@@ -1,6 +1,8 @@
-package application;
+package application.main;
 
-import org.springframework.boot.SpringApplication;
+import application.ui.SidePanel;
+import application.ui.ToolPanel;
+import application.ui.ViewPanel;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 

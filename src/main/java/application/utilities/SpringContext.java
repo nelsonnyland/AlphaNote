@@ -1,4 +1,4 @@
-package application.model;
+package application.utilities;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -1,14 +1,12 @@
-package application;
+package application.ui;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import application.model.AlphaNote;
-import application.model.Project;
 
 import java.awt.*;
-import java.util.Collection;
 
 /**
  * SidePanel is the selection pane for projects and notes.
