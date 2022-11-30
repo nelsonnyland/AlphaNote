@@ -1,14 +1,18 @@
-package application;
-
-import model.AlphaNote;
-import model.Project;
+package application.ui;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.util.Collection;
 
+import application.model.AlphaNote;
+
+import java.awt.*;
+
+/**
+ * SidePanel is the selection pane for projects and notes.
+ *
+ * @author Nelson Nyland
+ */
 public class SidePanel extends JPanel implements ListSelectionListener {
 
     JScrollPane scrollPane;

@@ -1,4 +1,4 @@
-package ui;
+package application.ui;
 
 import java.awt.Container;
 import java.awt.Font;
@@ -12,8 +12,9 @@ import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
-import model.Team;
-import model.Constants;
+
+import application.model.Constants;
+import application.model.Team;
 
 public class AboutDialog extends JDialog {
 
