@@ -5,6 +5,8 @@ import java.util.List;
 public class Note implements AlphaNote {
 
     private int id;
+    // parent id
+    private int projectId;
     private String name;
     private List<String> tags;
 

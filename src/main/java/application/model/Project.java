@@ -6,6 +6,8 @@ public class Project implements AlphaNote {
 
     private int id;
     private String name;
+    // child ids
+    private List<Integer> notes;
     private List<String> tags;
 
     public int getId() {
