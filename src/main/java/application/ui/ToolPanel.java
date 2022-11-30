@@ -2,7 +2,7 @@ package application.ui;
 
 import javax.swing.*;
 
-import application.main.MainFrame;
+import application.MainFrame;
 import application.utilities.Settings;
 import application.model.Team;
 

@@ -1,4 +1,4 @@
-package application.main;
+package application;
 
 import application.ui.SidePanel;
 import application.ui.ToolPanel;

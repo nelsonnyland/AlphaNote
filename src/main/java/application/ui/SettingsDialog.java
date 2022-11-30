@@ -66,6 +66,7 @@ public class SettingsDialog extends JDialog {
         String firstName = firstNameText.getText();
         String email = emailText.getText();
         Settings.saveSettings(firstName, email);
+        this.dispose();
     }
 
     private void cancel(final ActionEvent theEvent) {
