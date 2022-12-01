@@ -4,22 +4,24 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import application.model.AlphaNote;
+import application.model.Project;
 
 import java.awt.*;
+import java.util.List;
+
 
 /**
- * SidePanel is the selection pane for projects and notes.
+ * ProjectPanel is the selection pane for projects.
  *
  * @author Nelson Nyland
  */
-public class SidePanel extends JPanel implements ListSelectionListener {
+public class ProjectPanel extends JPanel implements ListSelectionListener {
 
-    JScrollPane scrollPane;
-    JList<AlphaNote> projects;
+    private JScrollPane scrollPane;
+    private JList<Project> projects;
 
-    public SidePanel(AlphaNote[] projects) {
-        this.projects = new JList<>(projects);
+    public ProjectPanel(List<Project> projectList) {
+        this.projects = new JList<>(projectList.toArray(new Project[0]));
         buildLayout();
         buildComponents();
         addComponents();
@@ -29,7 +31,7 @@ public class SidePanel extends JPanel implements ListSelectionListener {
     private void buildLayout() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setAlignmentX(Component.LEFT_ALIGNMENT);
-        setPreferredSize(new Dimension(150, SidePanel.HEIGHT));
+        setPreferredSize(new Dimension(150, ProjectPanel.HEIGHT));
     }
 
     private void buildComponents() {
@@ -47,10 +49,10 @@ public class SidePanel extends JPanel implements ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            projects = (JList<AlphaNote>) e.getSource();
-            AlphaNote selected = projects.getSelectedValue();
-            //TODO: send content to view pane...
-            System.out.println("You selected: " + selected.getName());
+//            projects = (JList<AlphaNote>) e.getSource();
+//            AlphaNote selected = projects.getSelectedValue();
+//            //TODO: send content to view pane...
+//            System.out.println("You selected: " + selected.getName());
         }
     }
 }

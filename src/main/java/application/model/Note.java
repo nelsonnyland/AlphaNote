@@ -2,7 +2,7 @@ package application.model;
 
 import java.util.List;
 
-public class Note implements AlphaNote {
+public class Note {
 
     private int id;
     // parent id

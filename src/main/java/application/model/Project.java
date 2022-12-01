@@ -2,7 +2,7 @@ package application.model;
 
 import java.util.List;
 
-public class Project implements AlphaNote {
+public class Project {
 
     private int id;
     private String name;
