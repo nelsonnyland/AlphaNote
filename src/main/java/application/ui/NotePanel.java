@@ -55,7 +55,9 @@ public class NotePanel extends JPanel implements ListSelectionListener {
         if (!e.getValueIsAdjusting()) {
             notes = (JList<Note>) e.getSource();
             Note selected = notes.getSelectedValue();
-            ViewPanel.setTextArea(selected.getContent()); // set view panel
+            if (selected != null) {
+                ViewPanel.setTextArea(selected.getContent()); // set view panel
+            }
         }
     }
 }

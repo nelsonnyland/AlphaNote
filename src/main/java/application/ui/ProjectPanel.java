@@ -53,7 +53,7 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
     private void loadProject(Project selected) {
         //TODO: get notes affiliated with selected project by note ids
         // set notes panel
-        notePanel.setNotePanel(buildNotes());
+        notePanel.setNotePanel(buildNotes(selected));
         // build display string
         StringBuilder tags = new StringBuilder();
         if (selected.getTags() != null) {
@@ -61,19 +61,16 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
                 tags.append(tag);
             }
         }
-        ViewPanel.setTextArea(
-                selected.getName() + "\n" +
-                        "Tags: " + tags
-        );
+        ViewPanel.setTextArea("Name: " + selected.getName() + "\n" + "Tags: " + tags);
     }
 
-    private List<Note> buildNotes() {
+    private List<Note> buildNotes(Project selected) {
         List<Note> notes = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Note note = new Note();
-            note.setId((int)(Math.random() * 99999));
-            note.setName("Note " + i);
-            note.setContent("Here is content for note # " + i);
+            note.setId(i);
+            note.setName("Project " + selected.getId() + " Note " + i);
+            note.setContent("Here is content for Project " + selected.getId() + " Note " + i);
             notes.add(note);
         }
         return notes;

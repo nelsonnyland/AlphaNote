@@ -62,7 +62,8 @@ public class MainFrame extends JFrame {
         projects = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Project project = new Project();
-            project.setId((int)(Math.random() * 99999));
+            //project.setId((int)(Math.random() * 99999));
+            project.setId(i);
             project.setName("Project " + i);
             project.setTags(tags);
             projects.add(project);
