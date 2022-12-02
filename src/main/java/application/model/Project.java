@@ -6,8 +6,7 @@ public class Project {
 
     private int id;
     private String name;
-    // child ids
-    private List<Integer> notes;
+    private List<Integer> notes; // child ids
     private List<String> tags;
 
     public int getId() {
@@ -16,6 +15,10 @@ public class Project {
 
     public String getName() {
         return name;
+    }
+
+    public List<Integer> getNotes() {
+        return notes;
     }
 
     public List<String> getTags() {
@@ -28,6 +31,10 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setNotes(List<Integer> notes) {
+        this.notes = notes;
     }
 
     public void setTags(List<String> tags) {

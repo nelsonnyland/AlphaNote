@@ -37,7 +37,9 @@ public class ToolPanel extends JPanel {//implements ActionListener {
 
     private void buildComponents() {
         menuBar = new JMenuBar();
-        var optionsMenu = new JMenu("...");
+        var optionsMenu = new JMenu();
+        var optionsIcon = new ImageIcon("src/main/resources/icons/glyphicons-137-cogwheel.png", "Options");
+        optionsMenu.setIcon(optionsIcon);
         menuBar.add(optionsMenu);
         aboutMenuItem = new JMenuItem("About");
         settingsMenuItem = new JMenuItem("Settings");
@@ -60,18 +62,6 @@ public class ToolPanel extends JPanel {//implements ActionListener {
         importSettingsMenuItem.addActionListener(this::importSettings);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        JMenuItem selectedItem = (JMenuItem) e.getSource();
-//        if (selectedItem == aboutMenuItem) {
-//            Team team = new Team();
-//            team.addMember("Mario Vidal, nickname: McMarioMan");
-//            team.addMember("Nelson Nyland, nickname: Nelly");
-//            team.addMember("Khoi Nguyen");
-//            new AboutDialog(mainFrame, team);
-//        }
-//    }
-
     private void aboutDialog(final ActionEvent theEvent) {
         Team team = new Team();
         team.addMember("Mario Vidal, nickname: McMarioMan");
@@ -81,22 +71,18 @@ public class ToolPanel extends JPanel {//implements ActionListener {
     }
 
     private void settingsDialog(final ActionEvent theEvent) {
-//    	Scanner input = new Scanner(System.in);
-//    	System.out.println("Enter first name");
-//    	String first_name = input.nextLine();
-//    	System.out.println("Enter email");
-//    	String email = input.nextLine();
-//    	Settings.saveSettings(first_name, email);
         new SettingsDialog(mainFrame);
     }
     
     private void exportSettings(final ActionEvent theEvent) {
     	//We could send the path as a parameter here
-    	Settings.exportSettings();
+    	//TODO: file chooser -- save
+        Settings.exportSettings();
     }
     
     private void importSettings(final ActionEvent theEvent) {
-    	Settings.importSettings();
+    	//TODO: file chooser -- open
+        Settings.importSettings();
     }
 
 }

@@ -25,10 +25,10 @@ import javax.swing.*;
 @SpringBootApplication
 public class MainFrame extends JFrame {
 
-    private JPanel toolPanel;
-    private JPanel projectPanel;
-    private JPanel notePanel;
-    private JPanel viewPanel;
+    private ToolPanel toolPanel;
+    private ProjectPanel projectPanel;
+    private NotePanel notePanel;
+    private ViewPanel viewPanel;
     private List<Project> projects;
     private List<Note> notes;
 
@@ -49,35 +49,30 @@ public class MainFrame extends JFrame {
     public MainFrame() {
     	super("AlphaNote");
         setLayout(new BorderLayout());
-        buildAlphaNote();
+        buildProjects();
         buildComponents();
         addComponents();
     }
 
-    private void buildAlphaNote() {
+    private void buildProjects() {
         //TODO: implement getting projects from database
         // get projects
+        List<String> tags = new ArrayList<>();
+        tags.add("Project");
         projects = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Project project = new Project();
             project.setId((int)(Math.random() * 99999));
             project.setName("Project " + i);
+            project.setTags(tags);
             projects.add(project);
-        }
-        // get notes
-        notes = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Note note = new Note();
-            note.setId((int)(Math.random() * 99999));
-            note.setName("Note " + i);
-            notes.add(note);
         }
     }
 
     private void buildComponents() {
         toolPanel = new ToolPanel(this);
-        projectPanel = new ProjectPanel(projects);
-        notePanel = new NotePanel(notes);
+        notePanel = new NotePanel();
+        projectPanel = new ProjectPanel(notePanel, projects);
         viewPanel = new ViewPanel();
 	}
 	

@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class ViewPanel extends JPanel {
 
-    private JTextArea textArea;
+    private static JTextArea textArea;
     private JScrollPane scrollPane;
 
     public ViewPanel() {
@@ -33,6 +33,10 @@ public class ViewPanel extends JPanel {
 
     private void addComponents() {
         add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public static void setTextArea(String text) {
+        textArea.setText(text);
     }
 
 }

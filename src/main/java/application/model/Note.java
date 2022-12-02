@@ -5,13 +5,21 @@ import java.util.List;
 public class Note {
 
     private int id;
-    // parent id
-    private int projectId;
+    private int projectId; // parent id
     private String name;
     private List<String> tags;
+    private String content;
 
     public int getId() {
         return id;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public String getName() {
@@ -26,6 +34,10 @@ public class Note {
         this.id = id;
     }
 
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -34,8 +46,14 @@ public class Note {
         this.tags = tags;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return name;
     }
+
+
 }

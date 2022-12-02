@@ -16,10 +16,10 @@ import java.awt.*;
 public class NotePanel extends JPanel implements ListSelectionListener {
 
     private JScrollPane scrollPane;
-    private JList<Note> notes;
+    private static JList<Note> notes;
 
-    public NotePanel(List<Note> notesList) {
-        this.notes = new JList<>(notesList.toArray(new Note[0]));
+    public NotePanel() {
+        notes = new JList<>();
         buildLayout();
         buildComponents();
         addComponents();
@@ -40,17 +40,22 @@ public class NotePanel extends JPanel implements ListSelectionListener {
         add(scrollPane);
     }
 
-    private void addListeners() {
+    public void addListeners() {
         notes.addListSelectionListener(this);
+    }
+
+    public void setNotePanel(List<Note> notesList) {
+        notes.setListData(notesList.toArray(new Note[0]));
+        revalidate();
+        repaint();
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-//            projects = (JList<AlphaNote>) e.getSource();
-//            AlphaNote selected = projects.getSelectedValue();
-//            //TODO: send content to view pane...
-//            System.out.println("You selected: " + selected.getName());
+            notes = (JList<Note>) e.getSource();
+            Note selected = notes.getSelectedValue();
+            ViewPanel.setTextArea(selected.getContent()); // set view panel
         }
     }
 }
