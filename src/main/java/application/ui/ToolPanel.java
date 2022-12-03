@@ -18,15 +18,13 @@ import java.awt.event.ActionEvent;
 public class ToolPanel extends JPanel {//implements ActionListener {
 
     /** A button to display about info. */
-    private MainFrame mainFrame;
     private JMenuBar menuBar;
     private JMenuItem aboutMenuItem;
     private JMenuItem settingsMenuItem;
     private JMenuItem exportSettingsMenuItem;
     private JMenuItem importSettingsMenuItem;
 
-    public ToolPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public ToolPanel() {
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         setBorder(BorderFactory.createEtchedBorder());
         buildComponents();
@@ -67,11 +65,11 @@ public class ToolPanel extends JPanel {//implements ActionListener {
         team.addMember("Mario Vidal, nickname: McMarioMan");
         team.addMember("Nelson Nyland, nickname: Nelly");
         team.addMember("Khoi Nguyen");
-        new AboutDialog(mainFrame, team);
+        new AboutDialog(team);
     }
 
     private void settingsDialog(final ActionEvent theEvent) {
-        new SettingsDialog(mainFrame);
+        new SettingsDialog();
     }
     
     private void exportSettings(final ActionEvent theEvent) {

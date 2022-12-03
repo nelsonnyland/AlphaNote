@@ -29,8 +29,11 @@ public class MainFrame extends JFrame {
     private ProjectPanel projectPanel;
     private NotePanel notePanel;
     private ViewPanel viewPanel;
-    private List<Project> projects;
+    //private List<Project> projects;
+    private DefaultListModel<Project> projectModel;
     private List<Note> notes;
+
+    public static MainFrame MAIN_FRAME;
 
     // starts the application
     public static void main(String[] args)
@@ -48,6 +51,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
     	super("AlphaNote");
+        MAIN_FRAME = this;
         setLayout(new BorderLayout());
         buildProjects();
         buildComponents();
@@ -59,21 +63,23 @@ public class MainFrame extends JFrame {
         // get projects
         List<String> tags = new ArrayList<>();
         tags.add("Project");
-        projects = new ArrayList<>();
+        //projects = new ArrayList<>();
+        projectModel = new DefaultListModel<>();
         for (int i = 0; i < 10; i++) {
             Project project = new Project();
             //project.setId((int)(Math.random() * 99999));
             project.setId(i);
             project.setName("Project " + i);
             project.setTags(tags);
-            projects.add(project);
+            //projects.add(project);
+            projectModel.addElement(project);
         }
     }
 
     private void buildComponents() {
-        toolPanel = new ToolPanel(this);
+        toolPanel = new ToolPanel();
         notePanel = new NotePanel();
-        projectPanel = new ProjectPanel(notePanel, projects);
+        projectPanel = new ProjectPanel(notePanel, projectModel);
         viewPanel = new ViewPanel();
 	}
 	

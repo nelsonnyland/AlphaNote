@@ -1,5 +1,6 @@
 package application.ui;
 
+import application.MainFrame;
 import application.utilities.Settings;
 import application.utilities.SpringUtilities;
 
@@ -16,13 +17,13 @@ public class SettingsDialog extends JDialog {
     private JButton saveButton;
     private JButton cancelButton;
 
-    public SettingsDialog(Frame owner) {
-        super(owner, "Settings");
+    public SettingsDialog() {
+        super(MainFrame.MAIN_FRAME, "Settings");
         setLayout(new SpringLayout());
         buildComponents();
         addComponents();
         addListeners();
-        layoutComponents(owner);
+        layoutComponents(MainFrame.MAIN_FRAME);
     }
 
     private void buildComponents() {
@@ -54,7 +55,6 @@ public class SettingsDialog extends JDialog {
 
     private void layoutComponents(Frame owner) {
         SpringUtilities.makeCompactGrid(getContentPane(), 3, 2, 6, 6, 6, 6);
-
         this.setModalityType(ModalityType.MODELESS);
         this.setResizable(false);
         this.pack();

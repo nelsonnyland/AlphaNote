@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 
+import application.MainFrame;
 import application.model.Constants;
 import application.model.Team;
 
@@ -25,11 +26,11 @@ public class AboutDialog extends JDialog {
     private Map<TextAttribute, Object> p_style;
     private Team team;
 	
-	public AboutDialog(Frame owner, Team team) {
-   	  	super(owner, "About");
+	public AboutDialog(Team team) {
+   	  	super(MainFrame.MAIN_FRAME, "About");
    	  	this.team = team;
 		buildComponents();
-		layoutComponents(owner); 	
+		layoutComponents(MainFrame.MAIN_FRAME);
 	}
 	
 	private void buildComponents() {
