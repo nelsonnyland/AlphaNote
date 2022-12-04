@@ -2,9 +2,19 @@ package application.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Project implements AlphaNote {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+	@Column(nullable = false)
     private String name;
     private List<String> tags;
 
@@ -18,10 +28,6 @@ public class Project implements AlphaNote {
 
     public List<String> getTags() {
         return tags;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setName(String name) {

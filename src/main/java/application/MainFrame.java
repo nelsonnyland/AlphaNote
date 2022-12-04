@@ -3,11 +3,15 @@ package application;
 import application.ui.SidePanel;
 import application.ui.ToolPanel;
 import application.ui.ViewPanel;
+import application.utilities.SpringContext;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import application.model.AlphaNote;
 import application.model.Project;
+import application.repository.ProjectDAO;
+import application.repository.SettingsDAO;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -46,12 +50,12 @@ public class MainFrame extends JFrame {
     public MainFrame() {
     	super("AlphaNote");
         setLayout(new BorderLayout());
-        getProjects();
+        //getProjects();
         buildComponents();
         addComponents();
     }
 
-    private void getProjects() {
+    /*private void getProjects() {
         //TODO: implement getting projects from database
         List<String> tags = new ArrayList<>();
         tags.add("Project");
@@ -63,6 +67,11 @@ public class MainFrame extends JFrame {
             project.setTags(tags);
             projects[i] = project;
         }
+    }*/
+    
+    private void getProjects() {
+    	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
+    	projects = (AlphaNote[]) projectDAO.findAll().toArray();
     }
 
     private void buildComponents() {
