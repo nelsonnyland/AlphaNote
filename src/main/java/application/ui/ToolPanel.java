@@ -2,7 +2,8 @@ package application.ui;
 
 import javax.swing.*;
 
-import application.MainFrame;
+import application.ui.dialog.AboutDialog;
+import application.ui.dialog.SettingsDialog;
 import application.utilities.Settings;
 import application.model.Team;
 
@@ -18,6 +19,7 @@ import java.awt.event.ActionEvent;
 public class ToolPanel extends JPanel {//implements ActionListener {
 
     /** A button to display about info. */
+    private JButton saveButton;
     private JMenuBar menuBar;
     private JMenuItem aboutMenuItem;
     private JMenuItem settingsMenuItem;
@@ -34,6 +36,9 @@ public class ToolPanel extends JPanel {//implements ActionListener {
     
 
     private void buildComponents() {
+        //var saveIcon
+        var saveIcon = new ImageIcon("src/main/resources/icons/glyphicons-444-floppy-disk.png");
+        saveButton = new JButton(saveIcon);
         menuBar = new JMenuBar();
         var optionsMenu = new JMenu();
         var optionsIcon = new ImageIcon("src/main/resources/icons/glyphicons-137-cogwheel.png", "Options");
@@ -50,15 +55,24 @@ public class ToolPanel extends JPanel {//implements ActionListener {
     }
 
     private void addComponents() {
+        add(saveButton);
         add(menuBar);
     }
 
     private void addListeners() {
+        saveButton.addActionListener(this::saveNote);
         aboutMenuItem.addActionListener(this::aboutDialog);
         settingsMenuItem.addActionListener(this::settingsDialog);
         exportSettingsMenuItem.addActionListener(this::exportSettings);
         importSettingsMenuItem.addActionListener(this::importSettings);
     }
+
+    private void saveNote(ActionEvent actionEvent) {
+        //TODO: save note to db
+        NotePanel.saveNote();
+        System.out.println("SAVED");
+    }
+
 
     private void aboutDialog(final ActionEvent theEvent) {
         Team team = new Team();

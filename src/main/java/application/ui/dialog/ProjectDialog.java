@@ -1,17 +1,16 @@
-package application.ui;
+package application.ui.dialog;
 
 import application.MainFrame;
 import application.model.Project;
+import application.ui.ProjectPanel;
 import application.utilities.SpringUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class NewProjectDialog extends JDialog {
+public class ProjectDialog extends JDialog {
 
     private ProjectPanel projectPanel;
     private JLabel projectNameLabel;
@@ -21,7 +20,7 @@ public class NewProjectDialog extends JDialog {
     private JButton createButton;
     private JButton cancelButton;
 
-    public NewProjectDialog(ProjectPanel projectPanel) {
+    public ProjectDialog(ProjectPanel projectPanel) {
         super(MainFrame.MAIN_FRAME, "New Project");
         this.projectPanel = projectPanel;
         setLayout(new SpringLayout());

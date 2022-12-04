@@ -1,4 +1,4 @@
-package application.ui;
+package application.ui.dialog;
 
 import application.MainFrame;
 import application.utilities.Settings;

@@ -35,7 +35,11 @@ public class ViewPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public static void setTextArea(String text) {
+    public static String getText() {
+        return textArea.getText();
+    }
+
+    public static void setText(String text) {
         textArea.setText(text);
     }
 

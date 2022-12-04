@@ -37,6 +37,12 @@ public class Project {
         this.notes = notes;
     }
 
+    public void addNoteId(int noteId) {
+        if (this.notes != null) {
+            this.notes.add(noteId);
+        }
+    }
+
     public void setTags(List<String> tags) {
         this.tags = tags;
     }

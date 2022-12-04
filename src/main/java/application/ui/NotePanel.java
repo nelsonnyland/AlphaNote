@@ -1,6 +1,7 @@
 package application.ui;
 
 import application.model.Note;
+import application.ui.dialog.NoteDialog;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -17,11 +18,13 @@ import java.awt.*;
 public class NotePanel extends JPanel implements ListSelectionListener {
 
     private JScrollPane scrollPane;
-    private static JList<Note> notes;
     private JButton newNoteButton;
+    private static JList<Note> notes;
+    private DefaultListModel<Note> noteModel;
 
     public NotePanel() {
-        notes = new JList<>();
+        noteModel = new DefaultListModel<>();
+        notes = new JList<>(noteModel);
         buildLayout();
         buildComponents();
         addComponents();
@@ -37,6 +40,7 @@ public class NotePanel extends JPanel implements ListSelectionListener {
 
     private void buildComponents() {
         scrollPane = new JScrollPane(notes);
+        scrollPane.setColumnHeaderView(new JLabel("Notes"));
         newNoteButton = new JButton("New Note");
     }
 
@@ -50,14 +54,27 @@ public class NotePanel extends JPanel implements ListSelectionListener {
         newNoteButton.addActionListener(this::newNote);;
     }
 
-    public void setNotePanel(List<Note> notesList) {
-        notes.setListData(notesList.toArray(new Note[0]));
-        revalidate();
-        repaint();
+    private void newNote(ActionEvent actionEvent) {
+        new NoteDialog(this);
     }
 
-    private void newNote(ActionEvent actionEvent) {
-        System.out.println("NEW NOTE");
+    public void addNote(Note note) {
+        noteModel.addElement(note);
+    }
+
+    public void setNotePanel(List<Note> notesList) {
+        noteModel.clear();
+        noteModel.addAll(notesList);
+    }
+
+    public int getNoteCount() {
+        return noteModel.getSize();
+    }
+
+    public static void saveNote() {
+        //TODO: send notes.getSelectedValue() to db
+        Note selected = notes.getSelectedValue();
+        selected.setContent(ViewPanel.getText());
     }
 
     @Override
@@ -66,7 +83,7 @@ public class NotePanel extends JPanel implements ListSelectionListener {
             notes = (JList<Note>) e.getSource();
             Note selected = notes.getSelectedValue();
             if (selected != null) {
-                ViewPanel.setTextArea(selected.getContent()); // set view panel
+                ViewPanel.setText(selected.getContent()); // set view panel
             }
         }
     }

@@ -6,6 +6,7 @@ import javax.swing.event.ListSelectionListener;
 
 import application.model.Note;
 import application.model.Project;
+import application.ui.dialog.ProjectDialog;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,13 +23,12 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
 
     private JScrollPane scrollPane;
     private NotePanel notePanel;
-    private JList<Project> projects;
-    private DefaultListModel<Project> projectModel;
     private JButton newProjectButton;
+    private static JList<Project> projects;
+    private DefaultListModel<Project> projectModel;
 
     public ProjectPanel(NotePanel notePanel, DefaultListModel<Project> projectModel) {
         this.notePanel = notePanel;
-        //this.projects = new JList<>(projectList.toArray(new Project[0]));
         this.projectModel = projectModel;
         this.projects = new JList<>(projectModel);
         buildLayout();
@@ -46,6 +46,7 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
 
     private void buildComponents() {
         scrollPane = new JScrollPane(projects);
+        scrollPane.setColumnHeaderView(new JLabel("Projects"));
         newProjectButton = new JButton("New Project");
     }
 
@@ -69,7 +70,7 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
                 tags.append(tag);
             }
         }
-        ViewPanel.setTextArea("Name: " + selected.getName() + "\n" + "Tags: " + tags);
+        ViewPanel.setText("Name: " + selected.getName() + "\n" + "Tags: " + tags);
     }
 
     private List<Note> buildNotes(Project selected) {
@@ -85,7 +86,7 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
     }
 
     private void newProject(ActionEvent actionEvent) {
-        new NewProjectDialog(this);
+        new ProjectDialog(this);
     }
 
     public void addProject(Project project) {
@@ -95,13 +96,24 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
     public void setProjectPanel(List<Project> projectList) {
         projectModel.clear();
         projectModel.addAll(projectList);
-//        projects.setListData(projectList.toArray(new Project[0]));
-//        revalidate();
-//        repaint();
     }
 
     public int getProjectCount() {
         return projectModel.getSize();
+    }
+
+    public static int getProjectId() {
+        int projectId = 0; //TODO: revise after db integration
+        if (projects.getSelectedValue() != null) {
+            projectId = projects.getSelectedValue().getId();
+        }
+        return projectId;
+    }
+
+    public static void addNoteId(int noteId) {
+        if (projects.getSelectedValue() != null) {
+            projects.getSelectedValue().addNoteId(noteId);
+        }
     }
 
     @Override

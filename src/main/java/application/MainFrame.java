@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
     private ViewPanel viewPanel;
     //private List<Project> projects;
     private DefaultListModel<Project> projectModel;
-    private List<Note> notes;
+    //private List<Note> notes;
 
     public static MainFrame MAIN_FRAME;
 

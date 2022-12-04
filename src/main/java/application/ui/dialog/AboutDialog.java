@@ -1,4 +1,4 @@
-package application.ui;
+package application.ui.dialog;
 
 import java.awt.Container;
 import java.awt.Font;
