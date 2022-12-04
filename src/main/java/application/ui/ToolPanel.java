@@ -2,7 +2,8 @@ package application.ui;
 
 import javax.swing.*;
 
-import application.MainFrame;
+import application.ui.dialog.AboutDialog;
+import application.ui.dialog.SettingsDialog;
 import application.utilities.Settings;
 import application.model.Team;
 
@@ -18,15 +19,14 @@ import java.awt.event.ActionEvent;
 public class ToolPanel extends JPanel {//implements ActionListener {
 
     /** A button to display about info. */
-    private MainFrame mainFrame;
+    private JButton saveButton;
     private JMenuBar menuBar;
     private JMenuItem aboutMenuItem;
     private JMenuItem settingsMenuItem;
     private JMenuItem exportSettingsMenuItem;
     private JMenuItem importSettingsMenuItem;
 
-    public ToolPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public ToolPanel() {
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         setBorder(BorderFactory.createEtchedBorder());
         buildComponents();
@@ -36,8 +36,13 @@ public class ToolPanel extends JPanel {//implements ActionListener {
     
 
     private void buildComponents() {
+        //var saveIcon
+        var saveIcon = new ImageIcon("src/main/resources/icons/glyphicons-444-floppy-disk.png");
+        saveButton = new JButton(saveIcon);
         menuBar = new JMenuBar();
-        var optionsMenu = new JMenu("...");
+        var optionsMenu = new JMenu();
+        var optionsIcon = new ImageIcon("src/main/resources/icons/glyphicons-137-cogwheel.png", "Options");
+        optionsMenu.setIcon(optionsIcon);
         menuBar.add(optionsMenu);
         aboutMenuItem = new JMenuItem("About");
         settingsMenuItem = new JMenuItem("Settings");
@@ -50,53 +55,46 @@ public class ToolPanel extends JPanel {//implements ActionListener {
     }
 
     private void addComponents() {
+        add(saveButton);
         add(menuBar);
     }
 
     private void addListeners() {
+        saveButton.addActionListener(this::saveNote);
         aboutMenuItem.addActionListener(this::aboutDialog);
         settingsMenuItem.addActionListener(this::settingsDialog);
         exportSettingsMenuItem.addActionListener(this::exportSettings);
         importSettingsMenuItem.addActionListener(this::importSettings);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        JMenuItem selectedItem = (JMenuItem) e.getSource();
-//        if (selectedItem == aboutMenuItem) {
-//            Team team = new Team();
-//            team.addMember("Mario Vidal, nickname: McMarioMan");
-//            team.addMember("Nelson Nyland, nickname: Nelly");
-//            team.addMember("Khoi Nguyen");
-//            new AboutDialog(mainFrame, team);
-//        }
-//    }
+    private void saveNote(ActionEvent actionEvent) {
+        //TODO: save note to db
+        NotePanel.saveNote();
+        System.out.println("SAVED");
+    }
+
 
     private void aboutDialog(final ActionEvent theEvent) {
         Team team = new Team();
         team.addMember("Mario Vidal, nickname: McMarioMan");
         team.addMember("Nelson Nyland, nickname: Nelly");
         team.addMember("Khoi Nguyen");
-        new AboutDialog(mainFrame, team);
+        new AboutDialog(team);
     }
 
     private void settingsDialog(final ActionEvent theEvent) {
-//    	Scanner input = new Scanner(System.in);
-//    	System.out.println("Enter first name");
-//    	String first_name = input.nextLine();
-//    	System.out.println("Enter email");
-//    	String email = input.nextLine();
-//    	Settings.saveSettings(first_name, email);
-        new SettingsDialog(mainFrame);
+        new SettingsDialog();
     }
     
     private void exportSettings(final ActionEvent theEvent) {
     	//We could send the path as a parameter here
-    	Settings.exportSettings();
+    	//TODO: file chooser -- save
+        Settings.exportSettings();
     }
     
     private void importSettings(final ActionEvent theEvent) {
-    	Settings.importSettings();
+    	//TODO: file chooser -- open
+        Settings.importSettings();
     }
 
 }

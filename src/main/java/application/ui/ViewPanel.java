@@ -1,8 +1,8 @@
 package application.ui;
 
+import application.MainFrame;
+
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 /**
@@ -12,16 +12,8 @@ import java.awt.*;
  */
 public class ViewPanel extends JPanel {
 
-    JTextPane textPane;
-    JScrollPane scrollPane;
-
-    // WIDTH is based on main frame width minus sidebar width:
-    // 1000 - 150 = 850 (- 20 aberration) = 830
-    private final int WIDTH = 830;
-
-    // HEIGHT is based on main frame height minus appx toolbar height:
-    // 700 - 50 = 650 (+ 20 aberration) = 670
-    private final int HEIGHT = 670;
+    private static JTextArea textArea;
+    private JScrollPane scrollPane;
 
     public ViewPanel() {
         buildLayout();
@@ -30,25 +22,25 @@ public class ViewPanel extends JPanel {
     }
 
     private void buildLayout() {
-        setLayout(new FlowLayout());
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //setAlignmentX(Component.CENTER_ALIGNMENT);
-        //setAlignmentY(Component.CENTER_ALIGNMENT);
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(850, MainFrame.HEIGHT));
     }
 
     private void buildComponents() {
-        textPane = new JTextPane();
-        textPane.setCaretPosition(0);
-        //textPane.setMargin(new Insets(10, 10, 10, 10));
-        //StyledDocument styledDocument = textPane.getStyledDocument();
-        scrollPane = new JScrollPane(textPane);
-        scrollPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-        scrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+        textArea = new JTextArea();
+        scrollPane = new JScrollPane(textArea);
     }
 
     private void addComponents() {
-        add(scrollPane);
+        add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public static String getText() {
+        return textArea.getText();
+    }
+
+    public static void setText(String text) {
+        textArea.setText(text);
     }
 
 }
