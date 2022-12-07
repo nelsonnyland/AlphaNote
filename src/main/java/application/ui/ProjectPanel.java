@@ -6,12 +6,17 @@ import javax.swing.event.ListSelectionListener;
 
 import application.model.Note;
 import application.model.Project;
+import application.repository.NoteDAO;
+import application.repository.ProjectDAO;
+import application.service.NoteService;
 import application.ui.dialog.ProjectDialog;
+import application.utilities.SpringContext;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -28,7 +33,8 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
     private DefaultListModel<Project> projectModel;
 
     public ProjectPanel(NotePanel notePanel, DefaultListModel<Project> projectModel) {
-        this.notePanel = notePanel;
+        this.notePanel = notePanel;        
+        //buildProjects();
         this.projectModel = projectModel;
         this.projects = new JList<>(projectModel);
         buildLayout();
@@ -36,6 +42,12 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
         addComponents();
         addListeners();
     }
+    /*private void buildProjects() {
+    	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
+    	projectModel = new DefaultListModel<>();
+    	projectModel.addAll(projectDAO.findAll());
+    	this.projects = new JList<>(projectModel);
+    }*/
 
     private void buildLayout() {
         //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -74,15 +86,10 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
     }
 
     private List<Note> buildNotes(Project selected) {
-        List<Note> notes = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Note note = new Note();
-            note.setId(i);
-            note.setName("Project " + selected.getId() + " Note " + i);
-            note.setContent("Here is content for Project " + selected.getId() + " Note " + i);
-            notes.add(note);
-        }
-        return notes;
+    	
+    	NoteService noteService = SpringContext.getBean(NoteService.class);        
+        return noteService.getNotesByProject(selected);
+        
     }
 
     private void newProject(ActionEvent actionEvent) {
@@ -102,17 +109,13 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
         return projectModel.getSize();
     }
 
-    public static int getProjectId() {
-        int projectId = 0; //TODO: revise after db integration
-        if (projects.getSelectedValue() != null) {
-            projectId = projects.getSelectedValue().getId();
-        }
-        return projectId;
+    public static Project getProject() {
+        return projects.getSelectedValue();
     }
 
     public static void addNoteId(int noteId) {
         if (projects.getSelectedValue() != null) {
-            projects.getSelectedValue().addNoteId(noteId);
+            //projects.getSelectedValue().addNoteId(noteId);
         }
     }
 

@@ -2,7 +2,9 @@ package application.ui.dialog;
 
 import application.MainFrame;
 import application.model.Project;
+import application.repository.ProjectDAO;
 import application.ui.ProjectPanel;
+import application.utilities.SpringContext;
 import application.utilities.SpringUtilities;
 
 import javax.swing.*;
@@ -71,11 +73,13 @@ public class ProjectDialog extends JDialog {
         String projectTags = projectTagsText.getText();
         String[] tags = projectTags.trim().split(",");
         Project project = new Project();
-        project.setId(projectPanel.getProjectCount());
+        //project.setId(projectPanel.getProjectCount());
         project.setName(projectName);
         project.setTags(Arrays.stream(tags).toList());
         projectPanel.addProject(project);
         //TODO: save into db
+        ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
+        projectDAO.save(project);        
         this.dispose();
     }
 

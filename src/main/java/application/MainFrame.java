@@ -33,7 +33,6 @@ public class MainFrame extends JFrame {
     private ProjectPanel projectPanel;
     private NotePanel notePanel;
     private ViewPanel viewPanel;
-    //private List<Project> projects;
     private DefaultListModel<Project> projectModel;
     //private List<Note> notes;
 
@@ -42,31 +41,33 @@ public class MainFrame extends JFrame {
     // starts the application
     public static void main(String[] args)
     {    	
-        //EventQueue.invokeLater(MainFrame::createAndShowGui);
     	var ctx = new SpringApplicationBuilder(MainFrame.class)
                 .headless(false).run(args);
 
         EventQueue.invokeLater(() -> {
-
             var ex = ctx.getBean(MainFrame.class);
-            ex.createAndShowGui();
+            ex.createAndShowGui();            
         });
     }
 
     public MainFrame() {
-    	super("AlphaNote");
-        MAIN_FRAME = this;
-        setLayout(new BorderLayout());
-        //getProjects();
-        buildProjects();
-        buildComponents();
-        addComponents();
+
     }
 
+    public MainFrame(String title) {
+    	super(title);
+        MAIN_FRAME = this;
+        setLayout(new BorderLayout());
+        buildProjects();
+        buildComponents();
+        addComponents();        
+    }
+    
     private void buildProjects() {
-        //TODO: implement getting projects from database
-        // get projects
-        List<String> tags = new ArrayList<>();
+    	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
+    	projectModel = new DefaultListModel<>();
+    	projectModel.addAll(projectDAO.findAll());    	
+        /*List<String> tags = new ArrayList<>();
         tags.add("Project");
         //projects = new ArrayList<>();
         projectModel = new DefaultListModel<>();
@@ -78,14 +79,8 @@ public class MainFrame extends JFrame {
             project.setTags(tags);
             //projects.add(project);
             projectModel.addElement(project);
-        }
+        }*/
     }
-
-    
-    /*private void getProjects() {
-    	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
-    	projects = (AlphaNote[]) projectDAO.findAll().toArray();
-    }*/
 
     private void buildComponents() {
         toolPanel = new ToolPanel();
@@ -105,7 +100,7 @@ public class MainFrame extends JFrame {
     }
 	
     public static void createAndShowGui() {
-    	final MainFrame window = new MainFrame();
+    	final MainFrame window = new MainFrame("AlphaNote");
         final Dimension frameSize = new Dimension(1150, 700);
         // configure frame
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

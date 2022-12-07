@@ -2,20 +2,33 @@ package application.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Note {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int projectId; // parent id
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+	@JoinColumn(nullable = false, name="project_id")
+    private Project project; // parent id
+    @Column(nullable = false)
     private String name;
     private List<String> tags;
+    @Column(nullable = true, length = 1000)
     private String content;
 
     public int getId() {
         return id;
-    }
-
-    public int getProjectId() {
-        return projectId;
     }
 
     public String getContent() {
@@ -29,15 +42,13 @@ public class Note {
     public List<String> getTags() {
         return tags;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    public void setProject(Project project) {
+    	this.project = project;
     }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public Project getProject() {
+    	return this.project;
     }
-
     public void setName(String name) {
         this.name = name;
     }

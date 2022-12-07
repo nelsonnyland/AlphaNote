@@ -3,8 +3,10 @@ package application.ui.dialog;
 import application.MainFrame;
 import application.model.Note;
 import application.model.Project;
+import application.repository.NoteDAO;
 import application.ui.NotePanel;
 import application.ui.ProjectPanel;
+import application.utilities.SpringContext;
 import application.utilities.SpringUtilities;
 
 import javax.swing.*;
@@ -72,14 +74,15 @@ public class NoteDialog extends JDialog {
         String noteName = noteNameText.getText();
         String noteTags = noteTagsText.getText();
         String[] tags = noteTags.trim().split(",");
-        Note note = new Note();
-        note.setId(notePanel.getNoteCount());
-        note.setProjectId(ProjectPanel.getProjectId());
+        Note note = new Note();        
+        note.setProject(ProjectPanel.getProject());
         note.setName(noteName);
         note.setTags(Arrays.stream(tags).toList());
         notePanel.addNote(note);
         ProjectPanel.addNoteId(note.getId());
         //TODO: save into db
+        NoteDAO noteDAO = SpringContext.getBean(NoteDAO.class);
+        noteDAO.save(note);
         this.dispose();
     }
 

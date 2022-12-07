@@ -1,7 +1,9 @@
 package application.ui;
 
 import application.model.Note;
+import application.service.NoteService;
 import application.ui.dialog.NoteDialog;
+import application.utilities.SpringContext;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -75,6 +77,8 @@ public class NotePanel extends JPanel implements ListSelectionListener {
         //TODO: send notes.getSelectedValue() to db
         Note selected = notes.getSelectedValue();
         selected.setContent(ViewPanel.getText());
+        NoteService noteService = SpringContext.getBean(NoteService.class); 
+        noteService.saveNote(selected);
     }
 
     @Override

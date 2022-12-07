@@ -3,9 +3,11 @@ package application.model;
 import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Project {
@@ -15,7 +17,8 @@ public class Project {
     private int id;
 	@Column(nullable = false)
     private String name;
-    private List<Integer> notes; // child ids
+	@OneToMany(mappedBy="project", fetch=FetchType.LAZY)
+    private List<Note> notes;
     private List<String> tags;
 
     public int getId() {
@@ -24,10 +27,6 @@ public class Project {
 
     public String getName() {
         return name;
-    }
-
-    public List<Integer> getNotes() {
-        return notes;
     }
 
     public List<String> getTags() {
@@ -40,16 +39,6 @@ public class Project {
     
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setNotes(List<Integer> notes) {
-        this.notes = notes;
-    }
-
-    public void addNoteId(int noteId) {
-        if (this.notes != null) {
-            this.notes.add(noteId);
-        }
     }
 
     public void setTags(List<String> tags) {
