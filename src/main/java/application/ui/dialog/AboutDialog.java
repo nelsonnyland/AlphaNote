@@ -17,6 +17,11 @@ import application.MainFrame;
 import application.model.Constants;
 import application.model.Team;
 
+/**
+ * AboutDialog is for displaying application specific information.
+ *
+ * @author Mario Vidal
+ */
 public class AboutDialog extends JDialog {
 
     private JLabel myRegisteredToLabel;    
@@ -25,14 +30,25 @@ public class AboutDialog extends JDialog {
     
     private Map<TextAttribute, Object> p_style;
     private Team team;
-	
+
+	/**
+	 * AboutDialog instantiates the AboutDialog.
+	 *
+	 * @author Mario Vidal
+	 * @param team
+	 */
 	public AboutDialog(Team team) {
    	  	super(MainFrame.MAIN_FRAME, "About");
    	  	this.team = team;
 		buildComponents();
 		layoutComponents(MainFrame.MAIN_FRAME);
 	}
-	
+
+	/**
+	 * buildComponents creates the components necessary for the AboutDialog.
+	 *
+	 * @author Mario Vidal
+	 */
 	private void buildComponents() {
 		    	
 		p_style = new HashMap<>();
@@ -45,6 +61,12 @@ public class AboutDialog extends JDialog {
 		myVersionLabel = new JLabel("AlphaNote " + Constants.VERSION_NUMBER);
 	}
 
+	/**
+	 * layoutComponents builds the components necessary for the AboutDialog.
+	 *
+	 * @author Mario Vidal
+	 * @param owner
+	 */
 	private void layoutComponents(Frame owner) {
 		Container contentPane = this.getContentPane();    	
     	SpringLayout layout = new SpringLayout();

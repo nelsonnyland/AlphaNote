@@ -12,6 +12,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
+/**
+ * ProjectDialog is a JDialog for creating projects.
+ *
+ * @author Nelson Nyland
+ * @author Mario Vidal
+ */
 public class ProjectDialog extends JDialog {
 
     private ProjectPanel projectPanel;
@@ -22,6 +28,12 @@ public class ProjectDialog extends JDialog {
     private JButton createButton;
     private JButton cancelButton;
 
+    /**
+     * ProjectDialog creates an instance of JDialog
+     *
+     * @author Nelson Nyland
+     * @param projectPanel
+     */
     public ProjectDialog(ProjectPanel projectPanel) {
         super(MainFrame.MAIN_FRAME, "New Project");
         this.projectPanel = projectPanel;
@@ -32,6 +44,11 @@ public class ProjectDialog extends JDialog {
         layoutComponents(MainFrame.MAIN_FRAME);
     }
 
+    /**
+     * buildComponents builds the components for the JDialog
+     *
+     * @author Nelson Nyland
+     */
     private void buildComponents() {
         projectNameLabel = new JLabel("Project Name: ", JLabel.TRAILING);
         projectNameText = new JTextField(15);
@@ -45,6 +62,11 @@ public class ProjectDialog extends JDialog {
         cancelButton = new JButton("Cancel");
     }
 
+    /**
+     * addComponents adds the components for the JDialog
+     *
+     * @author Nelson Nyland
+     */
     private void addComponents() {
         add(projectNameLabel);
         add(projectNameText);
@@ -54,11 +76,22 @@ public class ProjectDialog extends JDialog {
         add(cancelButton);
     }
 
+    /**
+     * addListeners adds actionListeners to the JDialog
+     *
+     * @author Nelson Nyland
+     */
     private void addListeners() {
         createButton.addActionListener(this::createProject);
         cancelButton.addActionListener(this::cancel);
     }
 
+    /**
+     * layoutCompactGrid builds the JDialog
+     *
+     * @author Nelson Nyland
+     * @param owner
+     */
     private void layoutComponents(Frame owner) {
         SpringUtilities.makeCompactGrid(getContentPane(), 3, 2, 6, 6, 6, 6);
         this.setModalityType(ModalityType.MODELESS);
@@ -68,6 +101,13 @@ public class ProjectDialog extends JDialog {
         this.setVisible(true);
     }
 
+    /**
+     * createProject creates a project and adds it to the database
+     *
+     * @author Nelson Nyland
+     * @author Mario Vidal
+     * @param actionEvent
+     */
     private void createProject(ActionEvent actionEvent) {
         String projectName = projectNameText.getText();
         String projectTags = projectTagsText.getText();
@@ -83,6 +123,12 @@ public class ProjectDialog extends JDialog {
         this.dispose();
     }
 
+    /**
+     * cancel closes the JDialog
+     *
+     * @author Nelson Nyland
+     * @param actionEvent
+     */
     private void cancel(ActionEvent actionEvent) {
         this.dispose();
     }

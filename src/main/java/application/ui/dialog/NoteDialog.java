@@ -14,6 +14,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
+/**
+ * NoteDialog enables the creation of notes in the UI.
+ *
+ * @author Nelson Nyland
+ */
 public class NoteDialog extends JDialog {
 
     private NotePanel notePanel;
@@ -24,6 +29,12 @@ public class NoteDialog extends JDialog {
     private JButton createButton;
     private JButton cancelButton;
 
+    /**
+     * NoteDialog is a dialog for creating a new note.
+     *
+     * @author Nelson Nyland
+     * @param notePanel
+     */
     public NoteDialog(NotePanel notePanel) {
         super(MainFrame.MAIN_FRAME, "New Note");
         this.notePanel = notePanel;
@@ -34,6 +45,11 @@ public class NoteDialog extends JDialog {
         layoutComponents(MainFrame.MAIN_FRAME);
     }
 
+    /**
+     * buildComponents builds the components for the dialog
+     *
+     * @author Nelson Nyland
+     */
     private void buildComponents() {
         noteNameLabel = new JLabel("Note Name: ", JLabel.TRAILING);
         noteNameText = new JTextField(15);
@@ -47,6 +63,11 @@ public class NoteDialog extends JDialog {
         cancelButton = new JButton("Cancel");
     }
 
+    /**
+     * addComponents adds components to the JDialog
+     *
+     * @author Nelson Nyland
+     */
     private void addComponents() {
         add(noteNameLabel);
         add(noteNameText);
@@ -56,11 +77,22 @@ public class NoteDialog extends JDialog {
         add(cancelButton);
     }
 
+    /**
+     * addListeners adds actionListeners to components
+     *
+     * @author Nelson Nyland
+     */
     private void addListeners() {
         createButton.addActionListener(this::createNote);
         cancelButton.addActionListener(this::cancel);
     }
 
+    /**
+     * layoutComponents builds the JDialog
+     *
+     * @author Nelson Nyland
+     * @param owner
+     */
     private void layoutComponents(Frame owner) {
         SpringUtilities.makeCompactGrid(getContentPane(), 3, 2, 6, 6, 6, 6);
         this.setModalityType(ModalityType.MODELESS);
@@ -70,6 +102,13 @@ public class NoteDialog extends JDialog {
         this.setVisible(true);
     }
 
+    /**
+     * createNote creates a note and stores it in the database.
+     *
+     * @author Nelson Nyland
+     * @author Mario Vidal
+     * @param actionEvent
+     */
     private void createNote(ActionEvent actionEvent) {
         String noteName = noteNameText.getText();
         String noteTags = noteTagsText.getText();
@@ -86,6 +125,12 @@ public class NoteDialog extends JDialog {
         this.dispose();
     }
 
+    /**
+     * cancel closes out the JDialog.
+     *
+     * @author Nelson Nyland
+     * @param actionEvent
+     */
     private void cancel(ActionEvent actionEvent) {
         this.dispose();
     }

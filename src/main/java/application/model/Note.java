@@ -12,6 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Note is an object for storing note state and behavior.
+ *
+ * @author Nelson Nyland
+ * @author Mario Vidal
+ */
 @Entity
 public class Note {
 

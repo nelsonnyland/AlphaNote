@@ -9,22 +9,46 @@ import application.model.Note;
 import application.model.Project;
 import application.repository.NoteDAO;
 
+/**
+ * NoteService is for handling note persistence to the database.
+ *
+ * @author Mario Vidal
+ */
 @Service
 public class NoteService {
 	
 	private NoteDAO noteDAO;
-	
+
+	/**
+	 * NoteService instantiates the NoteService class.
+	 *
+	 * @author Mario Vidal
+	 * @param noteDAO
+	 */
 	public NoteService(NoteDAO noteDAO) {
 		this.noteDAO = noteDAO;
 	}
-	
+
+	/**
+	 * getNotesByProject is for querying the database for notes by project.
+	 *
+	 * @author Mario Vidal
+	 * @param project
+	 * @return
+	 */
 	public List<Note> getNotesByProject(Project project) {    	 
         List<Note> notes = noteDAO.findAll();
         return notes.stream().
         		filter(e -> e.getProject().getId() == project.getId()).
         		collect(Collectors.toList());
 	}
-	
+
+	/**
+	 * saveNote is for saving notes to the database.
+	 *
+	 * @author Mario Vidal
+	 * @param note
+	 */
 	public void saveNote(Note note) {
 		noteDAO.save(note);
 	}

@@ -9,6 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+/**
+ * Project is an object for storing project state and behavior.
+ *
+ * @author Nelson Nyland
+ * @author Mario Vidal
+ */
 @Entity
 public class Project {
 

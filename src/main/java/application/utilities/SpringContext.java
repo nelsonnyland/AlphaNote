@@ -4,7 +4,12 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
- 
+
+/**
+ * SpringContext represents the database layer for the application.
+ *
+ * @author Mario Vidal
+ */
 @Component
 public class SpringContext implements ApplicationContextAware {
      

@@ -34,11 +34,15 @@ public class MainFrame extends JFrame {
     private NotePanel notePanel;
     private ViewPanel viewPanel;
     private DefaultListModel<Project> projectModel;
-    //private List<Note> notes;
 
     public static MainFrame MAIN_FRAME;
 
-    // starts the application
+    /**
+     * starts the application
+     *
+     * @author Mario Vidal
+     * @param args
+     */
     public static void main(String[] args)
     {    	
     	var ctx = new SpringApplicationBuilder(MainFrame.class)
@@ -50,10 +54,13 @@ public class MainFrame extends JFrame {
         });
     }
 
-    public MainFrame() {
-
-    }
-
+    /**
+     * Initializes MainFrame
+     *
+     * @author Mario Vidal
+     * @author Nelson Nyland
+     * @param title
+     */
     public MainFrame(String title) {
     	super(title);
         MAIN_FRAME = this;
@@ -62,26 +69,24 @@ public class MainFrame extends JFrame {
         buildComponents();
         addComponents();        
     }
-    
+
+    /**
+     * Builds the project view
+     *
+     * @author Nelson Nyland
+     * @author Mario Vidal
+     */
     private void buildProjects() {
     	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
     	projectModel = new DefaultListModel<>();
     	projectModel.addAll(projectDAO.findAll());    	
-        /*List<String> tags = new ArrayList<>();
-        tags.add("Project");
-        //projects = new ArrayList<>();
-        projectModel = new DefaultListModel<>();
-        for (int i = 0; i < 10; i++) {
-            Project project = new Project();
-            //project.setId((int)(Math.random() * 99999));
-            project.setId(i);
-            project.setName("Project " + i);
-            project.setTags(tags);
-            //projects.add(project);
-            projectModel.addElement(project);
-        }*/
     }
 
+    /**
+     * Builds the components
+     *
+     * @author Nelson Nyland
+     */
     private void buildComponents() {
         toolPanel = new ToolPanel();
         notePanel = new NotePanel();
@@ -91,6 +96,8 @@ public class MainFrame extends JFrame {
 	
     /**
      * Add JPanels to JFrame
+     *
+     * @author Nelson Nyland
      */
     private void addComponents() {
         add(toolPanel, BorderLayout.NORTH);
@@ -98,7 +105,13 @@ public class MainFrame extends JFrame {
         add(notePanel, BorderLayout.CENTER);
         add(viewPanel, BorderLayout.EAST);
     }
-	
+
+    /**
+     * Builds the Frame
+     *
+     * @author Mario Vidal
+     * @author Nelson Nyland
+     */
     public static void createAndShowGui() {
     	final MainFrame window = new MainFrame("AlphaNote");
         final Dimension frameSize = new Dimension(1150, 700);
@@ -111,3 +124,17 @@ public class MainFrame extends JFrame {
     }
 
 }
+
+/*List<String> tags = new ArrayList<>();
+tags.add("Project");
+//projects = new ArrayList<>();
+projectModel = new DefaultListModel<>();
+for (int i = 0; i < 10; i++) {
+    Project project = new Project();
+    //project.setId((int)(Math.random() * 99999));
+    project.setId(i);
+    project.setName("Project " + i);
+    project.setTags(tags);
+    //projects.add(project);
+    projectModel.addElement(project);
+}*/
