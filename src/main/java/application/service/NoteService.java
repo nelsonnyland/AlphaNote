@@ -13,6 +13,7 @@ import application.repository.NoteDAO;
  * NoteService is for handling note persistence to the database.
  *
  * @author Mario Vidal
+ * @author Nelson Nyland
  */
 @Service
 public class NoteService {
@@ -52,5 +53,15 @@ public class NoteService {
 	public void saveNote(Note note) {
 		noteDAO.save(note);
 	}
-	
+
+	/**
+	 * deleteNote is for deleting notes in the database.
+	 *
+	 * @author Nelson Nyland
+	 * @param note
+	 */
+	public void deleteNote(Note note) {
+		noteDAO.delete(note);
+	}
+
 }

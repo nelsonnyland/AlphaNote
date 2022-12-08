@@ -9,6 +9,7 @@ import application.model.Project;
 import application.repository.NoteDAO;
 import application.repository.ProjectDAO;
 import application.service.NoteService;
+import application.service.ProjectService;
 import application.ui.dialog.ProjectDialog;
 import application.utilities.SpringContext;
 
@@ -31,7 +32,7 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
     private NotePanel notePanel;
     private JButton newProjectButton;
     private static JList<Project> projects;
-    private DefaultListModel<Project> projectModel;
+    private static DefaultListModel<Project> projectModel;
 
     /**
      * ProjectPanel instantiates the ProjectPanel
@@ -41,8 +42,7 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
      * @param projectModel
      */
     public ProjectPanel(NotePanel notePanel, DefaultListModel<Project> projectModel) {
-        this.notePanel = notePanel;        
-        //buildProjects();
+        this.notePanel = notePanel;
         this.projectModel = projectModel;
         this.projects = new JList<>(projectModel);
         buildLayout();
@@ -50,13 +50,6 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
         addComponents();
         addListeners();
     }
-
-    /*private void buildProjects() {
-    	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
-    	projectModel = new DefaultListModel<>();
-    	projectModel.addAll(projectDAO.findAll());
-    	this.projects = new JList<>(projectModel);
-    }*/
 
     /**
      * buildLayout builds the layout for the JPanel
@@ -105,12 +98,10 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
      * loadProject loads the project into the ViewPanel
      *
      * @author Nelson Nyland
-     * @param selected
+     * @param selected project
      */
     private void loadProject(Project selected) {
-        //TODO: get notes affiliated with selected project by note ids
-        // set notes panel
-        notePanel.setNotePanel(buildNotes(selected));
+        notePanel.setNotePanel(buildNotes(selected)); // set notes panel
         StringBuilder tags = new StringBuilder();
         if (selected.getTags() != null) {
             for (String tag : selected.getTags()) {
@@ -124,21 +115,20 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
      * buildNotes retrieves the notes for the project
      *
      * @author Mario Vidal
-     * @param selected
+     * @param selected project
      * @return the notes for the project
      */
     private List<Note> buildNotes(Project selected) {
-    	
-    	NoteService noteService = SpringContext.getBean(NoteService.class);        
+        // get notes affiliated with selected project
+    	NoteService noteService = SpringContext.getBean(NoteService.class);
         return noteService.getNotesByProject(selected);
-        
     }
 
     /**
      * newProject opens the ProjectDialog
      *
      * @author Nelson Nyland
-     * @param actionEvent
+     * @param actionEvent new project
      */
     private void newProject(ActionEvent actionEvent) {
         new ProjectDialog(this);
@@ -148,10 +138,19 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
      * addProject adds a project to the ProjectModel
      *
      * @author Nelson Nyland
-     * @param project
+     * @param project add project
      */
     public void addProject(Project project) {
         projectModel.addElement(project);
+    }
+
+    /**
+     * removeProject removes a project from the ProjectModel
+     *
+     * @author Nelson Nyland
+     */
+    private static void removeProject() {
+        projectModel.removeElement(projects.getSelectedValue());
     }
 
     /**
@@ -186,6 +185,30 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
     }
 
     /**
+     * getProjectId gets the selected project id
+     *
+     * @author Nelson Nyland
+     * @return project id
+     */
+    public static int getProjectId() {
+        return projects.getSelectedValue().getId();
+    }
+
+    /**
+     * deleteProject deletes the selected project and its notes from the model and database
+     *
+     * @author Nelson Nyland
+     */
+    public static void deleteProject() {
+        NotePanel.deleteAllNotes();
+        Project selected = projects.getSelectedValue();
+        ProjectService projectService = SpringContext.getBean(ProjectService.class);
+        projectService.deleteProject(selected);
+        removeProject();
+        System.out.println(selected.getName() + " deleted");
+    }
+
+    /**
      * addNoteId adds the note id to the current project
      *
      * @author Nelson Nyland
@@ -195,6 +218,10 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
         if (projects.getSelectedValue() != null) {
             //projects.getSelectedValue().addNoteId(noteId);
         }
+    }
+
+    public static boolean isProjectSelected() {
+        return projects.getSelectedValue() != null;
     }
 
     /**
@@ -208,7 +235,11 @@ public class ProjectPanel extends JPanel implements ListSelectionListener {
         if (!e.getValueIsAdjusting()) {
             projects = (JList<Project>) e.getSource();
             Project selected = projects.getSelectedValue();
-            loadProject(selected);
+            if (selected != null) {
+                loadProject(selected);
+                ToolPanel.disableSaveButton();
+                ToolPanel.enableDeleteButton();
+            }
         }
     }
 }

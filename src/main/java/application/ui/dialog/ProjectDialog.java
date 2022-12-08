@@ -113,11 +113,10 @@ public class ProjectDialog extends JDialog {
         String projectTags = projectTagsText.getText();
         String[] tags = projectTags.trim().split(",");
         Project project = new Project();
-        //project.setId(projectPanel.getProjectCount());
         project.setName(projectName);
         project.setTags(Arrays.stream(tags).toList());
         projectPanel.addProject(project);
-        //TODO: save into db
+        // save to db
         ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
         projectDAO.save(project);        
         this.dispose();

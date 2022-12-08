@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
      */
     public static void main(String[] args)
     {    	
-    	var ctx = new SpringApplicationBuilder(MainFrame.class)
+        var ctx = new SpringApplicationBuilder(MainFrame.class)
                 .headless(false).run(args);
 
         EventQueue.invokeLater(() -> {
@@ -53,6 +53,14 @@ public class MainFrame extends JFrame {
             ex.createAndShowGui();            
         });
     }
+
+    /**
+     * 0 arg constructor
+     *
+     * @author Mario Vidal
+     * @author Nelson Nyland
+     */
+    public MainFrame() {}
 
     /**
      * Initializes MainFrame

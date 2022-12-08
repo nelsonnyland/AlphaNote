@@ -23,7 +23,7 @@ public class NotePanel extends JPanel implements ListSelectionListener {
     private JScrollPane scrollPane;
     private JButton newNoteButton;
     private static JList<Note> notes;
-    private DefaultListModel<Note> noteModel;
+    private static DefaultListModel<Note> noteModel;
 
     /**
      * NotePanel instantiates the NotePanel
@@ -77,7 +77,7 @@ public class NotePanel extends JPanel implements ListSelectionListener {
      *
      * @author Nelson Nyland
      */
-    public void addListeners() {
+    private void addListeners() {
         notes.addListSelectionListener(this);
         newNoteButton.addActionListener(this::newNote);;
     }
@@ -103,6 +103,15 @@ public class NotePanel extends JPanel implements ListSelectionListener {
     }
 
     /**
+     * removeNote removes a note from the NoteModel
+     *
+     * @author Nelson Nyland
+     */
+    private static void removeNote() {
+        noteModel.removeElement(notes.getSelectedValue());
+    }
+
+    /**
      * setNotePanel sets the NoteModel
      *
      * @author Nelson Nyland
@@ -110,7 +119,58 @@ public class NotePanel extends JPanel implements ListSelectionListener {
      */
     public void setNotePanel(List<Note> notesList) {
         noteModel.clear();
+        notes = new JList<>(noteModel);
         noteModel.addAll(notesList);
+    }
+
+    /**
+     * saveNote saves the note to the object and database
+     *
+     * @author Nelson Nyland
+     * @author Mario Vidal
+     */
+    public static void saveNote() {
+        Note selected = notes.getSelectedValue();
+        selected.setContent(ViewPanel.getText());
+        NoteService noteService = SpringContext.getBean(NoteService.class); 
+        noteService.saveNote(selected);
+        System.out.println(selected.getName() + " saved");
+    }
+
+    /**
+     * deleteNote deletes the selected note from the database
+     *
+     * @author Nelson Nyland
+     */
+    public static void deleteNote() {
+        Note selected = notes.getSelectedValue();
+        NoteService noteService = SpringContext.getBean(NoteService.class);
+        noteService.deleteNote(selected);
+        removeNote();
+        System.out.println(selected.getName() + " deleted");
+    }
+
+    /**
+     * deleteAllNotes deletes all the notes in the NoteModel and the database
+     *
+     * @author Nelson Nyland
+     */
+    public static void deleteAllNotes() {
+        NoteService noteService = SpringContext.getBean(NoteService.class);
+        for (int i = 0; i < noteModel.getSize(); i++) {
+            noteService.deleteNote(noteModel.get(i));
+        }
+        noteModel.clear();
+    }
+
+    /**
+     * isNoteSelected returns whether a note is selected
+     *
+     * @author Nelson Nyland
+     * @return
+     */
+    public static boolean isNoteSelected() {
+        return notes.getSelectedValue() != null;
     }
 
     /**
@@ -121,20 +181,6 @@ public class NotePanel extends JPanel implements ListSelectionListener {
      */
     public int getNoteCount() {
         return noteModel.getSize();
-    }
-
-    /**
-     * saveNote saves the note to the object and database
-     *
-     * @author Nelson Nyland
-     * @author Mario Vidal
-     */
-    public static void saveNote() {
-        //TODO: send notes.getSelectedValue() to db
-        Note selected = notes.getSelectedValue();
-        selected.setContent(ViewPanel.getText());
-        NoteService noteService = SpringContext.getBean(NoteService.class); 
-        noteService.saveNote(selected);
     }
 
     /**
@@ -150,6 +196,7 @@ public class NotePanel extends JPanel implements ListSelectionListener {
             Note selected = notes.getSelectedValue();
             if (selected != null) {
                 ViewPanel.setText(selected.getContent()); // set view panel
+                ToolPanel.enableSaveButton();
             }
         }
     }
