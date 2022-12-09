@@ -148,6 +148,7 @@ public class NotePanel extends JPanel implements ListSelectionListener {
         noteService.deleteNote(selected);
         removeNote();
         System.out.println(selected.getName() + " deleted");
+        ViewPanel.setText("");
     }
 
     /**

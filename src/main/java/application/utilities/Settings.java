@@ -96,7 +96,8 @@ public class Settings implements Serializable{
 	 *
 	 * @author Mario Vidal
 	 */
-	public static void exportSettings()
+
+	public static void exportSettings(String path)
 	{		
 		SettingsDAO settingsDAO = SpringContext.getBean(SettingsDAO.class);
 		
@@ -112,7 +113,7 @@ public class Settings implements Serializable{
 		ObjectOutputStream oos = null;
 	    FileOutputStream fout = null;
 	    try{ 
-	      fout = new FileOutputStream("c:\\temp\\settings.ser", true);
+	      fout = new FileOutputStream(path, true);
 	      oos = new ObjectOutputStream(fout);
 	      oos.writeObject(settings);
 	    } catch (Exception ex) {
@@ -141,10 +142,10 @@ public class Settings implements Serializable{
 	}
 
 
-	public static void importSettings() {
+	public static void importSettings(String path) {
 		Object result = null;
         try {
-        	FileInputStream fis = new FileInputStream("c:\\temp\\settings.ser");
+        	FileInputStream fis = new FileInputStream(path);
             ObjectInputStream ois = new ObjectInputStream(fis);
             result = ois.readObject();
         }catch(Exception e) {

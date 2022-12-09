@@ -1,12 +1,15 @@
 package application.ui.dialog;
 
 import application.MainFrame;
+import application.repository.SettingsDAO;
 import application.utilities.Settings;
+import application.utilities.SpringContext;
 import application.utilities.SpringUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * SettingsDialog is the UI for adjusting the settings of the application.
@@ -43,6 +46,7 @@ public class SettingsDialog extends JDialog {
      * @author Nelson Nyland
      */
     private void buildComponents() {
+    	    	    	
         firstNameLabel = new JLabel("First Name: ", JLabel.TRAILING);
         firstNameText = new JTextField(15);
         firstNameLabel.setLabelFor(firstNameText);
@@ -53,6 +57,19 @@ public class SettingsDialog extends JDialog {
 
         saveButton = new JButton("Save");
         cancelButton = new JButton("Cancel");
+        
+        SettingsDAO settingsDAO = SpringContext.getBean(SettingsDAO.class);
+		
+		List<Settings> settingsList = settingsDAO.findAll();    	
+    	if(settingsList.size() == 0) {
+    		return;    		
+    	}
+		    	   	
+    	Settings settings = settingsList.get(0);
+    	
+    	firstNameText.setText(settings.getFirst_name());
+    	emailText.setText(settings.getEmail());
+        
     }
 
     /**

@@ -33,6 +33,10 @@ public class ToolPanel extends JPanel {//implements ActionListener {
     private static JButton saveButton;
     private static JButton deleteButton;
 
+    /** File selection dialog box.*/
+    private final JFileChooser myFileChooser = 
+                    new JFileChooser(System.getProperty("user.dir"));
+
     /**
      * ToolPanel instantiates the ToolPanel class
      *
@@ -179,9 +183,15 @@ public class ToolPanel extends JPanel {//implements ActionListener {
      * @param theEvent
      */
     private void exportSettings(final ActionEvent theEvent) {
-    	//We could send the path as a parameter here
-    	//TODO: file chooser -- save
-        Settings.exportSettings();
+    	
+    	if (myFileChooser.showSaveDialog(this) 
+                == JFileChooser.APPROVE_OPTION) {
+    		
+    		myFileChooser.setCurrentDirectory(myFileChooser.getCurrentDirectory());    		
+    		
+    		Settings.exportSettings(myFileChooser.getSelectedFile().getAbsolutePath());
+    	}        
+        
     }
 
     /**
@@ -192,8 +202,16 @@ public class ToolPanel extends JPanel {//implements ActionListener {
      * @param theEvent
      */
     private void importSettings(final ActionEvent theEvent) {
-    	//TODO: file chooser -- open
-        Settings.importSettings();
+    	
+    	final int returnVal = myFileChooser.showOpenDialog(this);
+        
+        if (returnVal == JFileChooser.CANCEL_OPTION) {
+            return;
+        }
+        
+        myFileChooser.setCurrentDirectory(myFileChooser.getCurrentDirectory());
+    	
+        Settings.importSettings(myFileChooser.getSelectedFile().getAbsolutePath());
     }
 
     /**
