@@ -73,7 +73,8 @@ public class ToolPanel extends JPanel {//implements ActionListener {
         // settings drop-down
         menuBar = new JMenuBar();
         var optionsMenu = new JMenu();
-        var optionsIcon = new ImageIcon("src/main/resources/icons/glyphicons-137-cogwheel.png", "Options");
+        var optionsIcon = new ImageIcon("src/main/resources/icons/glyphicons-137-cogwheel.png",
+                "Options");
         optionsMenu.setIcon(optionsIcon);
         optionsMenu.setToolTipText("Settings");
         menuBar.add(optionsMenu);
@@ -184,10 +185,10 @@ public class ToolPanel extends JPanel {//implements ActionListener {
      */
     private void exportSettings(final ActionEvent theEvent) {
     	
-    	if (myFileChooser.showSaveDialog(this) 
+    	if (myFileChooser.showSaveDialog(MAIN_FRAME)
                 == JFileChooser.APPROVE_OPTION) {
     		
-    		myFileChooser.setCurrentDirectory(myFileChooser.getCurrentDirectory());    		
+    		myFileChooser.setCurrentDirectory(myFileChooser.getCurrentDirectory());
     		
     		Settings.exportSettings(myFileChooser.getSelectedFile().getAbsolutePath());
     	}        
@@ -203,7 +204,7 @@ public class ToolPanel extends JPanel {//implements ActionListener {
      */
     private void importSettings(final ActionEvent theEvent) {
     	
-    	final int returnVal = myFileChooser.showOpenDialog(this);
+    	final int returnVal = myFileChooser.showOpenDialog(MAIN_FRAME);
         
         if (returnVal == JFileChooser.CANCEL_OPTION) {
             return;

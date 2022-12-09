@@ -94,6 +94,7 @@ public class SettingsDialog extends JDialog {
     private void addListeners() {
         saveButton.addActionListener(this::saveSettings);
         cancelButton.addActionListener(this::cancel);
+        getRootPane().setDefaultButton(saveButton);
     }
 
     /**

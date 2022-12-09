@@ -84,6 +84,7 @@ public class ProjectDialog extends JDialog {
     private void addListeners() {
         createButton.addActionListener(this::createProject);
         cancelButton.addActionListener(this::cancel);
+        getRootPane().setDefaultButton(createButton);
     }
 
     /**

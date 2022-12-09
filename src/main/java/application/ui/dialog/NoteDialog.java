@@ -85,6 +85,7 @@ public class NoteDialog extends JDialog {
     private void addListeners() {
         createButton.addActionListener(this::createNote);
         cancelButton.addActionListener(this::cancel);
+        getRootPane().setDefaultButton(createButton);
     }
 
     /**
