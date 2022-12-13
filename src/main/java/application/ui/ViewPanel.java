@@ -1,8 +1,8 @@
 package application.ui;
 
+import application.MainFrame;
+
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 /**
@@ -12,43 +12,67 @@ import java.awt.*;
  */
 public class ViewPanel extends JPanel {
 
-    JTextPane textPane;
-    JScrollPane scrollPane;
+    private static JTextArea textArea;
+    private JScrollPane scrollPane;
 
-    // WIDTH is based on main frame width minus sidebar width:
-    // 1000 - 150 = 850 (- 20 aberration) = 830
-    private final int WIDTH = 830;
-
-    // HEIGHT is based on main frame height minus appx toolbar height:
-    // 700 - 50 = 650 (+ 20 aberration) = 670
-    private final int HEIGHT = 670;
-
+    /**
+     * ViewPanel instantiates the ViewPanel
+     *
+     * @author Nelson Nyland
+     */
     public ViewPanel() {
         buildLayout();
         buildComponents();
         addComponents();
     }
 
+    /**
+     * buildLayout builds the layout for the ViewPanel
+     *
+     * @author Nelson Nyland
+     */
     private void buildLayout() {
-        setLayout(new FlowLayout());
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //setAlignmentX(Component.CENTER_ALIGNMENT);
-        //setAlignmentY(Component.CENTER_ALIGNMENT);
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(850, MainFrame.HEIGHT));
     }
 
+    /**
+     * buildComponents builds the components for the ViewPanel
+     *
+     * @author Nelson Nyland
+     */
     private void buildComponents() {
-        textPane = new JTextPane();
-        textPane.setCaretPosition(0);
-        //textPane.setMargin(new Insets(10, 10, 10, 10));
-        //StyledDocument styledDocument = textPane.getStyledDocument();
-        scrollPane = new JScrollPane(textPane);
-        scrollPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-        scrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+        textArea = new JTextArea();
+        scrollPane = new JScrollPane(textArea);
     }
 
+    /**
+     * addComponents adds components for the ViewPanel
+     *
+     * @author Nelson Nyland
+     */
     private void addComponents() {
-        add(scrollPane);
+        add(scrollPane, BorderLayout.CENTER);
+    }
+
+    /**
+     * getText gets the text for the JTextArea
+     *
+     * @author Nelson Nyland
+     * @return the text for the TextArea
+     */
+    public static String getText() {
+        return textArea.getText();
+    }
+
+    /**
+     * setText sets the text for the JTextArea
+     *
+     * @author Nelson Nyland
+     * @param text
+     */
+    public static void setText(String text) {
+        textArea.setText(text);
     }
 
 }

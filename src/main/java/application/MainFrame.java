@@ -1,13 +1,18 @@
 package application;
 
-import application.ui.SidePanel;
+import application.model.Note;
+import application.ui.NotePanel;
+import application.ui.ProjectPanel;
 import application.ui.ToolPanel;
 import application.ui.ViewPanel;
+import application.utilities.SpringContext;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import application.model.AlphaNote;
 import application.model.Project;
+import application.repository.ProjectDAO;
+import application.repository.SettingsDAO;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,65 +29,100 @@ import javax.swing.*;
 @SpringBootApplication
 public class MainFrame extends JFrame {
 
-    private JPanel toolPanel;
-    private JPanel sidePanel;
-    private JPanel viewPanel;
-    private AlphaNote[] projects;
+    private ToolPanel toolPanel;
+    private ProjectPanel projectPanel;
+    private NotePanel notePanel;
+    private ViewPanel viewPanel;
+    private DefaultListModel<Project> projectModel;
 
-    // starts the application
+    public static MainFrame MAIN_FRAME;
+
+    /**
+     * starts the application
+     *
+     * @author Mario Vidal
+     * @param args
+     */
     public static void main(String[] args)
     {    	
-        //EventQueue.invokeLater(MainFrame::createAndShowGui);
-    	var ctx = new SpringApplicationBuilder(MainFrame.class)
+        var ctx = new SpringApplicationBuilder(MainFrame.class)
                 .headless(false).run(args);
 
         EventQueue.invokeLater(() -> {
-
             var ex = ctx.getBean(MainFrame.class);
-            ex.createAndShowGui();
+            ex.createAndShowGui();            
         });
     }
 
-    public MainFrame() {
-    	super("AlphaNote");
+    /**
+     * 0 arg constructor
+     *
+     * @author Mario Vidal
+     * @author Nelson Nyland
+     */
+    public MainFrame() {}
+
+    /**
+     * Initializes MainFrame
+     *
+     * @author Mario Vidal
+     * @author Nelson Nyland
+     * @param title
+     */
+    public MainFrame(String title) {
+    	super(title);
+        MAIN_FRAME = this;
         setLayout(new BorderLayout());
-        getProjects();
+        buildProjects();
         buildComponents();
-        addComponents();
+        addComponents();        
     }
 
-    private void getProjects() {
-        //TODO: implement getting projects from database
-        List<String> tags = new ArrayList<>();
-        tags.add("Project");
-        projects = new AlphaNote[10];
-        for (int i = 0; i < 10; i++) {
-            Project project = new Project();
-            project.setId((int)(Math.random() * 99999));
-            project.setName("Project " + i);
-            project.setTags(tags);
-            projects[i] = project;
-        }
+    /**
+     * Builds the project view
+     *
+     * @author Nelson Nyland
+     * @author Mario Vidal
+     */
+    private void buildProjects() {
+    	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
+    	projectModel = new DefaultListModel<>();
+    	projectModel.addAll(projectDAO.findAll());    	
     }
 
+    /**
+     * Builds the components
+     *
+     * @author Nelson Nyland
+     */
     private void buildComponents() {
-        toolPanel = new ToolPanel(this);
-        sidePanel = new SidePanel(projects);
+        toolPanel = new ToolPanel();
+        notePanel = new NotePanel();
+        projectPanel = new ProjectPanel(notePanel, projectModel);
         viewPanel = new ViewPanel();
 	}
 	
     /**
      * Add JPanels to JFrame
+     *
+     * @author Nelson Nyland
      */
     private void addComponents() {
-    	add(toolPanel, BorderLayout.NORTH);
-        add(sidePanel, BorderLayout.WEST);
+        add(toolPanel, BorderLayout.NORTH);
+        add(projectPanel, BorderLayout.WEST);
+        add(notePanel, BorderLayout.CENTER);
         add(viewPanel, BorderLayout.EAST);
     }
-	
+
+    /**
+     * Builds the Frame
+     *
+     * @author Mario Vidal
+     * @author Nelson Nyland
+     */
     public static void createAndShowGui() {
-    	final MainFrame window = new MainFrame();
-        final Dimension frameSize = new Dimension(1000, 700);
+    	final MainFrame window = new MainFrame("AlphaNote");
+        final Dimension frameSize = new Dimension(1150, 700);
         // configure frame
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
@@ -92,3 +132,17 @@ public class MainFrame extends JFrame {
     }
 
 }
+
+/*List<String> tags = new ArrayList<>();
+tags.add("Project");
+//projects = new ArrayList<>();
+projectModel = new DefaultListModel<>();
+for (int i = 0; i < 10; i++) {
+    Project project = new Project();
+    //project.setId((int)(Math.random() * 99999));
+    project.setId(i);
+    project.setName("Project " + i);
+    project.setTags(tags);
+    //projects.add(project);
+    projectModel.addElement(project);
+}*/

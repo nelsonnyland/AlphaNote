@@ -29,39 +29,75 @@ public class Settings implements Serializable{
 	private String email;
 	@Column(nullable = false)
 	private String first_name;
-	
+
+	/**
+	 * Settings instantiates the Settings class
+	 *
+	 * @author Mario Vidal
+	 * @param email the email of the user
+	 * @param first_name the first name of the user
+	 */
 	public Settings(String email, String first_name) {
 		this.email = email;
 		this.first_name = first_name;
 	}
-	
-	
+
+	/**
+	 * A no arg constructor for Settings
+	 *
+	 * @author Mario Vidal
+	 */
 	public Settings() {
 		super();
 	}
 
-
+	/**
+	 * getEmail gets the email for the application user
+	 *
+	 * @author Mario Vidal
+	 * @return the email for the user
+	 */
 	public String getEmail() {
 		return email;
 	}
 
-
+	/**
+	 * setEmail sets the email for the application user
+	 *
+	 * @author Mario Vidal
+	 * @param email the email of the user
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
+	/**
+	 * getFirst_name gets the first name of the application user
+	 *
+	 * @author Mario Vidal
+	 * @return the first name of the user
+	 */
 	public String getFirst_name() {
 		return first_name;
 	}
 
-
+	/**
+	 * setFirst_name sets the first name of the application user
+	 *
+	 * @author Mario Vidal
+	 * @param first_name the first name of the user
+	 */
 	public void setFirst_name(String first_name) {
 		this.first_name = first_name;
 	}
 
+	/**
+	 * exportSettings exports the settings for the application
+	 *
+	 * @author Mario Vidal
+	 */
 
-	public static void exportSettings()
+	public static void exportSettings(String path)
 	{		
 		SettingsDAO settingsDAO = SpringContext.getBean(SettingsDAO.class);
 		
@@ -77,7 +113,7 @@ public class Settings implements Serializable{
 		ObjectOutputStream oos = null;
 	    FileOutputStream fout = null;
 	    try{ 
-	      fout = new FileOutputStream("c:\\temp\\settings.ser", true);
+	      fout = new FileOutputStream(path, true);
 	      oos = new ObjectOutputStream(fout);
 	      oos.writeObject(settings);
 	    } catch (Exception ex) {
@@ -93,17 +129,23 @@ public class Settings implements Serializable{
 	       }
 	    }
 	}
-	
+
+	/**
+	 * toString override for printing the settings
+	 *
+	 * @author Mario Vidal
+	 * @return the settings
+	 */
 	@Override
 	public String toString() {
 		return "Settings [id=" + id + ", email=" + email + ", first_name=" + first_name + "]";
 	}
 
 
-	public static void importSettings() {
+	public static void importSettings(String path) {
 		Object result = null;
         try {
-        	FileInputStream fis = new FileInputStream("c:\\temp\\settings.ser");
+        	FileInputStream fis = new FileInputStream(path);
             ObjectInputStream ois = new ObjectInputStream(fis);
             result = ois.readObject();
         }catch(Exception e) {

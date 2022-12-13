@@ -6,3 +6,4 @@
 /workspace.xml
 *.iml
 *.db
+/settings.ser
