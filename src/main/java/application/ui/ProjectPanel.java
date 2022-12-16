@@ -6,8 +6,6 @@ import javax.swing.event.ListSelectionListener;
 
 import application.model.Note;
 import application.model.Project;
-import application.repository.NoteDAO;
-import application.repository.ProjectDAO;
 import application.service.NoteService;
 import application.service.ProjectService;
 import application.ui.dialog.ProjectDialog;
@@ -15,9 +13,8 @@ import application.utilities.SpringContext;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 
 /**
