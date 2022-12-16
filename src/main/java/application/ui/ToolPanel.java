@@ -76,6 +76,7 @@ public class ToolPanel extends JPanel {//implements ActionListener {
         var optionsIcon = new ImageIcon("src/main/resources/icons/glyphicons-137-cogwheel.png",
                 "Options");
         optionsMenu.setIcon(optionsIcon);
+        //optionsMenu.setText("Menu");
         optionsMenu.setToolTipText("Settings");
         menuBar.add(optionsMenu);
         aboutMenuItem = new JMenuItem("About");

@@ -1,6 +1,5 @@
 package application;
 
-import application.model.Note;
 import application.ui.NotePanel;
 import application.ui.ProjectPanel;
 import application.ui.ToolPanel;
@@ -12,11 +11,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import application.model.Project;
 import application.repository.ProjectDAO;
-import application.repository.SettingsDAO;
+import application.service.ProjectService;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.*;
 
 /**
@@ -85,9 +82,9 @@ public class MainFrame extends JFrame {
      * @author Mario Vidal
      */
     private void buildProjects() {
-    	ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
+    	ProjectService projectService = SpringContext.getBean(ProjectService.class);
     	projectModel = new DefaultListModel<>();
-    	projectModel.addAll(projectDAO.findAll());    	
+    	projectModel.addAll(projectService.getAllProjects());    	
     }
 
     /**
@@ -132,17 +129,3 @@ public class MainFrame extends JFrame {
     }
 
 }
-
-/*List<String> tags = new ArrayList<>();
-tags.add("Project");
-//projects = new ArrayList<>();
-projectModel = new DefaultListModel<>();
-for (int i = 0; i < 10; i++) {
-    Project project = new Project();
-    //project.setId((int)(Math.random() * 99999));
-    project.setId(i);
-    project.setName("Project " + i);
-    project.setTags(tags);
-    //projects.add(project);
-    projectModel.addElement(project);
-}*/

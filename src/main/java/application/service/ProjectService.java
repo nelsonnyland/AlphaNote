@@ -2,6 +2,9 @@ package application.service;
 
 import application.model.Project;
 import application.repository.ProjectDAO;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,4 +37,22 @@ public class ProjectService {
 		projectDAO.delete(project);
 	}
 
+    /**
+     * saveProject is for saving a project in the database.
+	 *
+	 * @author Mario Vidal
+	 * @param project
+	 */
+	public void saveProject(Project project) {
+		projectDAO.save(project);
+	}
+	
+    /**
+     * getAllProjects is for retrieving all projects from the Database.
+	 *
+	 * @author Mario Vidal 
+	 */
+	public List<Project> getAllProjects() {
+		return projectDAO.findAll();
+	}
 }

@@ -2,7 +2,7 @@ package application.ui.dialog;
 
 import application.MainFrame;
 import application.model.Project;
-import application.repository.ProjectDAO;
+import application.service.ProjectService;
 import application.ui.ProjectPanel;
 import application.utilities.SpringContext;
 import application.utilities.SpringUtilities;
@@ -118,8 +118,8 @@ public class ProjectDialog extends JDialog {
         project.setTags(Arrays.stream(tags).toList());
         projectPanel.addProject(project);
         // save to db
-        ProjectDAO projectDAO = SpringContext.getBean(ProjectDAO.class);
-        projectDAO.save(project);        
+        ProjectService projectDAO = SpringContext.getBean(ProjectService.class);
+        projectDAO.saveProject(project);        
         this.dispose();
     }
 
